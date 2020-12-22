@@ -1,0 +1,43 @@
+<head xmlns:th="http://www.w3.org/1999/xhtml">
+    <header th:insert="header.html"/>
+</head>
+
+<body xmlns:th="http://www.w3.org/1999/xhtml">
+<br>
+<div class="container">
+    <div id="formulaire">
+        <div class="row justify-content-center">
+
+            <div class="col-4">
+                <!--/*@thymesVar id="authenticationCustomer" type="com.web.library.weblibrary.beans.AuthenticationCustomer"*/-->
+                <form id="formulaireUser" th:action="@{authentication}" th:object="${authenticationCustomer}"
+                      method="post">
+                    <div class="form-group">
+                        <label for="usename">Entrez votre adresse mail</label>
+                        <input th:field="*{username}" class="form-control" id="usename" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Entrez votre mot de passe</label>
+                        <input th:field="*{password}" class="form-control" id="password" type="password"
+                               required="required"/>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <td><span class="erreur" th:text="${erreur}"></span></td>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div id="button">
+                            <button class="ui-button" type="submit" value="Se connecter">Se connecter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="footer.html"/>
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" media="all">
+</body>
+

@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="header.html"/>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" media="all">
+</head>
+
+
+<body>
+<br>
+<!--    On affiche le profil ( paramètre utilisateur, prêt en cours, etc...)-->
+<div class="container">
+
+    <div class="row justify-content-center">
+        <table border="1" class="table table-dark">
+            <!--        On affiche les prêt en cours-->
+            <tr>
+                <th scope="col">Nom du livre</th>
+                <th scope="col">Date de début du prêt</th>
+                <th scope="col">Date de retour du prêt prévue</th>
+                <th scope="col">Bibliothèque de prêt</th>
+                <th scope="col">Prolongation du prêt effectuée ?</th>
+            </tr>
+            <div th:each="emprunt : ${emprunt}">
+                <tr>
+                    <!--/*@thymesVar id="book" type="com.web.library.weblibrary.beans.Emprunt"*/-->
+                    <td th:text="${emprunt.copy.book.title}"></td>
+                    <td th:text="${#dates.format(emprunt.empruntDate, 'dd-MM-YYYY')}"></td>
+                    <td th:text="${#dates.format(emprunt.returnDate, 'dd-MM-YYYY')}"></td>
+                    <td th:text="${emprunt.copy.library.nom}"></td>
+                    <td th:text="${emprunt.extended == false ? 'Non' : 'Oui'}"></td>
+                    <!--                        Prolongation possible si isExtended est false-->
+                    <td th:if="${emprunt.extended == false}"><a th:href="@{'/emprunt/extended/'+${emprunt.id}}">Prolonger
+                        le prêt</a></td>
+                </tr>
+            </div>
+        </table>
+    </div>
+</div>
+<footer th:insert="footer.html"/>
+</body>

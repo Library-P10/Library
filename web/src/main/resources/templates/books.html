@@ -1,0 +1,52 @@
+<head xmlns:th="http://www.w3.org/1999/xhtml">
+    <header th:insert="header.html"/>
+</head>
+
+<body xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="container">
+
+    <div id="row">
+        <div class="col-12">
+            <form id="formulaireCategorie" th:action="@{/books/categorie}" method="post">
+                <select id="categorie" name="categorie">
+                    <option value="">Choisir une catégorie</option>
+                    <option th:each="categorie : ${categorie}" th:value="${categorie.label}"
+                            th:text="${categorie.label}"/>
+                </select>
+                <input class="ui-button" type="submit" value="Rechercher">
+            </form>
+        </div>
+
+        <div class="col-12">
+            <div id="searchSaisie">
+                <form id="formulairesaisie" th:action="@{/books/search}" method="post">
+                    <label for="saisie">Saisir un auteur ou un titre de livre</label>
+                    <input id="saisie" type="text" name="saisie">
+
+                    <input class="ui-button" type="submit" value="Rechercher">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--On affiche les livres avec le titre, l'auteur, la date de parution, le nombre et lieu d'exmplaire disponible
+        ainsi que son image de couverture-->
+    <div class="row">
+        <div th:each="books : ${books}" class="col-md-4 my-1">
+            <div id="card">
+                <div class="card" th:href="@{'/book/'+${books.id}}">
+                    <img th:src="@{|/img/${books.cover}.jpeg|}" class="card-img-top" alt="Livre"/></div>
+                <div class="card-body"><a class="nav-link" th:href="@{'/book/'+${books.id}}"><p
+                        th:text="${books.title}"></p></a>
+                    <p class="card-text" th:text="${books.author.lastName}"></p>
+                    <p class="card-text" th:text="${books.author.firstName}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" media="all">
+<footer th:insert="footer.html"/>
+</body>

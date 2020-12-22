@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Library.iml" filepath="$PROJECT_DIR$/.idea/Library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/api-library.iml" filepath="$PROJECT_DIR$/api/api-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/batch/batch-library.iml" filepath="$PROJECT_DIR$/batch/batch-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/model/model.iml" filepath="$PROJECT_DIR$/api/model/model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/repository/repository.iml" filepath="$PROJECT_DIR$/api/repository/repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/service/service.iml" filepath="$PROJECT_DIR$/api/service/service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web/web-library.iml" filepath="$PROJECT_DIR$/web/web-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/webapp/webapp.iml" filepath="$PROJECT_DIR$/api/webapp/webapp.iml" />
+    </modules>
+  </component>
+</project>
