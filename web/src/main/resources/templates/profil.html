@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="header.html"/>
+</head>
+
+
+<body>
+<br>
+<!--    On affiche le profil ( paramètre utilisateur, prêt en cours, etc...)-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Adresse mail</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="customer : ${session.get('customer')}">
+                    <tr>
+                        <th><span th:text="${customer.firstName}"></span></th>
+                        <th><span th:text="${customer.lastName}"></span></th>
+                        <th><span th:text="${customer.email}"></span></th>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Code postale</th>
+                    <th scope="col">Ville</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="customer : ${session.get('customer')}">
+                    <tr>
+                        <th><span th:text="${customer.adress}"></span></th>
+                        <th><span th:text="${customer.postalCode}"></span></th>
+                        <th><span th:text="${customer.city}"></span></th>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <button class="ui-button"><a th:href="@{'/updatePassword/'+${customer.id}}">Modifier mon mot de passe</a>
+        </button>
+
+        <button class="ui-button"><a th:href="@{'/updateCustomer/'+${customer.id}}">Modifier mon profil</a></button>
+    </div>
+</div>
+</div>
+<footer th:insert="footer.html"/>
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" media="all">
+</body>

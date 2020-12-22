@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <header th:insert="header.html"/>
+</head>
+
+<body>
+<br>
+<div id="container">
+    <div class="formulaire">
+        <div class="row justify-content-center">
+            <div class="col-4">
+
+                <!--/*@thymesVar id="customer" type="com.web.library.weblibrary.beans.Customer"*/-->
+                <form id="formulaireUser" th:action="@{users}" th:object="${customer}" method="post">
+                    <div class="form-group">
+                        <label for="firstName">Entrez votre prénom</label>
+                        <input class="form-control" th:field="*{firstName}" id="firstName" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Entrez votre nom</label>
+                        <input class="form-control" th:field="*{lastName}" id="lastName" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adress">Entrez votre adresse</label>
+                        <input th:field="*{adress}" class="form-control" id="adress" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postalCode">Entrez votre code postale</label>
+                        <input th:field="*{postalCode}" class="form-control" id="postalCode" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">Entrez votre ville</label>
+                        <input th:field="*{city}" class="form-control" id="city" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Entrez votre email</label>
+                        <input th:field="*{email}" class="form-control" id="email" type="email" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Entrez votre password</label>
+                        <input th:field="*{password}" class="form-control" id="password" type="password"
+                               required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="confirmPassword" path="confirmPassword">Confirmez votre password</label>
+                        <input name="confirmPassword" class="form-control" type="password" required="required"/>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div id="buttonForm">
+                            <button class="ui-button" type="submit">S'inscrire</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="footer.html"/>
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" media="all">
+</body>

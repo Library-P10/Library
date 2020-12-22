@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <header th:insert="header.html"/>
+</head>
+
+<body>
+<br>
+<div id="container">
+    <div class="formulaire">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <!--/*@thymesVar id="customer" type="com.web.library.weblibrary.beans.Customer"*/-->
+                <form id="formulaireUser" th:action="@{/updateCustomer}" th:object="${customer}" method="post">
+                    <div th:each="customer : ${customer}">
+
+                        <div class="form-group">
+                            <input th:field="*{id}" class="form-control" id="id" type="hidden" required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName">Prénom :</label>
+                            <input th:field="*{firstName}" class="form-control" id="firstName" required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Nom :</label>
+                            <input th:field="*{lastName}" class="form-control" id="lastName" required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adress">Adresse :</label>
+                            <input th:field="*{adress}" class="form-control" id="adress" required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postalCode">Code postal :</label>
+                            <input th:field="*{postalCode}" class="form-control" id="postalCode" required="required"
+                                   th:value="${customer.postalCode}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">Ville</label>
+                            <input type="text" th:field="*{city}" class="form-control" id="city" required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Adresse mail :</span></label>
+                            <input th:field="*{email}" class="form-control" id="email" type="email"
+                                   required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input th:field="*{password}" class="form-control" id="password" type="hidden"
+                                   required="required"/>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div id="button">
+                            <button class="ui-button" type="submit">Modifier</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="footer.html"/>
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" media="all">
+</body>
