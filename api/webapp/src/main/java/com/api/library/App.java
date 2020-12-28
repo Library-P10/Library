@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String [] args )
     {
         SpringApplication.run(App.class);
         System.out.println( "API REST Start" );
