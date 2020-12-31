@@ -23,6 +23,7 @@ com/api/library/model/JwtRequest.class
 com/api/library/mapper/CategorieMapper.class
 com/api/library/mapper/EmpruntMapper.class
 com/api/library/dto/AuthorDto.class
+com/api/library/model/WaitingList.class
 com/api/library/dto/CategorieDto.class
 com/api/library/mapper/LibraryMapper.class
 com/api/library/dto/EmpruntDto.class
