@@ -42,8 +42,23 @@ public class Book implements Serializable {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    @OneToMany(mappedBy = "book")
+    private List<WaitingList> waitingLists = new ArrayList<>();
+
     public Book() {
 
+    }
+
+    public Book(final Long id, final String title, final Date pubDate, final int page, final String synopsis, final String cover, final Categorie categorie, final Author author, final List<WaitingList> waitingLists) {
+        this.id = id;
+        this.title = title;
+        this.pubDate = pubDate;
+        this.page = page;
+        this.synopsis = synopsis;
+        this.cover = cover;
+        this.categorie = categorie;
+        this.author = author;
+        this.waitingLists = waitingLists;
     }
 
     @Override
@@ -57,6 +72,7 @@ public class Book implements Serializable {
                 ", cover='" + cover + '\'' +
                 ", categorie=" + categorie +
                 ", author=" + author +
+                ", waitingLists=" + waitingLists +
                 '}';
     }
 
@@ -74,16 +90,6 @@ public class Book implements Serializable {
 
     public void setCategorie(final Categorie categorie) {
         this.categorie = categorie;
-    }
-
-    public Book(final Long id, final String title, final Date pubDate, final int page, final String subject, final String synopsis, final String cover)
-    {
-        this.id = id;
-        this.title = title;
-        this.pubDate = pubDate;
-        this.page = page;
-        this.synopsis = synopsis;
-        this.cover = cover;
     }
 
     public Long getId()

@@ -1,7 +1,7 @@
 com/api/library/repository/BookRepository.class
 com/api/library/repository/CategorieRepository.class
+com/api/library/repository/WaitingListRepository.class
 com/api/library/repository/CopyRepository.class
 com/api/library/repository/CustomerRepository.class
 com/api/library/App.class
 com/api/library/repository/EmpruntRepository.class
-com/api/library/repository/WaintingListeRepository.class
