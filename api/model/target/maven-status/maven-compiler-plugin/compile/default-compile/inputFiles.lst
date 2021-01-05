@@ -1,5 +1,6 @@
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/mapper/BookMapper.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/mapper/CustomerMapper.java
+/home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/dto/WaitingListDto.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/model/Copy.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/dto/BookDto.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/dto/LibraryDto.java
@@ -19,6 +20,7 @@
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/App.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/mapper/CategorieMapper.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/model/Customer.java
+/home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/mapper/WaitingListMapper.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/model/WaitingList.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/dto/CustomerDto.java
 /home/brichet/IdeaProjects/Library/api/model/src/main/java/com/api/library/dto/EmpruntDto.java

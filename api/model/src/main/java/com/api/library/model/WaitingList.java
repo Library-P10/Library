@@ -12,7 +12,7 @@ public class WaitingList {
     @Column
     private Long id;
 
-    @Column(name = "dateRequest")
+    @Column(name = "date_request")
     private Date dateRequest;
 
     @ManyToOne

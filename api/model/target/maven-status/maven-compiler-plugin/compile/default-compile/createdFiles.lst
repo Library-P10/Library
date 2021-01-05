@@ -30,5 +30,7 @@ com/api/library/dto/EmpruntDto.class
 com/api/library/dto/CustomerDto.class
 com/api/library/mapper/CustomerMapperImpl.class
 com/api/library/mapper/CopyMapper.class
+com/api/library/dto/WaitingListDto.class
 com/api/library/model/Emprunt.class
+com/api/library/mapper/WaitingListMapper.class
 com/api/library/App.class

@@ -2,6 +2,7 @@ package com.api.library.dto;
 
 import com.api.library.model.Book;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class BookDto {
     private String cover;
     private CategorieDto categorie;
     private AuthorDto author;
+    private List<WaitingListDto> waitingLists = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -80,4 +82,11 @@ public class BookDto {
         this.author = author;
     }
 
+    public List<WaitingListDto> getWaitingLists() {
+        return waitingLists;
+    }
+
+    public void setWaitingLists(final List<WaitingListDto> waitingLists) {
+        this.waitingLists = waitingLists;
+    }
 }
