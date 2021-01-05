@@ -15,6 +15,9 @@ public class WaitingList {
     @Column(name = "date_request")
     private Date dateRequest;
 
+    @Column(name = "date_sending_mail")
+    private Date dateSendingMail;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -28,6 +31,7 @@ public class WaitingList {
         return "WaitingList{" +
                 "id=" + id +
                 ", dateRequest=" + dateRequest +
+                ", dateSendingMail" + dateSendingMail +
                 ", customer=" + customer +
                 ", book=" + book +
                 '}';
@@ -36,9 +40,10 @@ public class WaitingList {
     public WaitingList() {
     }
 
-    public WaitingList(final Long id, final Date dateRequest, final Customer customer, final Book book) {
+    public WaitingList(final Long id, final Date dateRequest, final Date dateSendingMail, final Customer customer, final Book book) {
         this.id = id;
         this.dateRequest = dateRequest;
+        this.dateSendingMail = dateSendingMail;
         this.customer = customer;
         this.book = book;
     }
@@ -65,6 +70,14 @@ public class WaitingList {
 
     public void setDateRequest(final Date dateRequest) {
         this.dateRequest = dateRequest;
+    }
+
+    public Date getDateSendingMail() {
+        return dateSendingMail;
+    }
+
+    public void setDateSendingMail(final Date dateSendingMail) {
+        this.dateSendingMail = dateSendingMail;
     }
 
     public Customer getCustomer() {

@@ -1,14 +1,27 @@
-package com.api.library.dto;
+package com.web.library.batchlibrary.model;
 
 import java.util.Date;
 
-public class WaitingListDto {
+public class WaitingList {
 
     private Long id;
     private Date dateRequest;
     private Date dateSendingMail;
-    private CustomerDto customer;
-    private BookDto book;
+    private Customer customer;
+    private Book book;
+
+    public WaitingList() {
+    }
+
+    public WaitingList(final Long id, final Date dateRequest,
+                       final Date dateSendingMail, final Customer customer,
+                       final Book book) {
+        this.id = id;
+        this.dateRequest = dateRequest;
+        this.dateSendingMail = dateSendingMail;
+        this.customer = customer;
+        this.book = book;
+    }
 
     public Long getId() {
         return id;
@@ -34,19 +47,19 @@ public class WaitingListDto {
         this.dateSendingMail = dateSendingMail;
     }
 
-    public CustomerDto getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(final CustomerDto customer) {
+    public void setCustomer(final Customer customer) {
         this.customer = customer;
     }
 
-    public BookDto getBook() {
+    public Book getBook() {
         return book;
     }
 
-    public void setBook(final BookDto book) {
+    public void setBook(final Book book) {
         this.book = book;
     }
 }
