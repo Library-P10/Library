@@ -1,6 +1,5 @@
 package com.api.library.service.contract;
 
-import com.api.library.dto.CustomerDto;
 import com.api.library.dto.EmpruntDto;
 
 import java.util.List;
@@ -15,6 +14,11 @@ public interface EmpruntService {
 
     // Supprime un emprunt
     void deleteEmprunt(Long id);
+
+    void returnEmprunt(Long idEmprunt);
+
+    // Supprime un emprunt by Id Copy
+    void deleteEmpruntByIdCopy(Long idCopy);
 
     // Prolonge un prêt
     void extendLoan(Long idEmprunt);

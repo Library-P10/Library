@@ -22,4 +22,8 @@ public interface EmpruntRepository extends JpaRepository<Emprunt,Long> {
     // Récupère les prêts expirés
     @Query("SELECT e FROM Emprunt e WHERE e.returnDate <= CURRENT_DATE ")
     List<Emprunt> getEmpruntExpiredLoanDate();
+
+    // Récupère un prêt selon son idCopy
+    @Query("SELECT e FROM Emprunt e WHERE e.copy.id = :idCopy")
+    Emprunt getEmpruntByIdCopy(@Param("idCopy")Long idCopy);
 }

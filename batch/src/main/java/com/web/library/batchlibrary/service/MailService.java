@@ -36,7 +36,18 @@ public class MailService {
         this.feignProxy = feignProxy;
     }
 
+    /**
+     * Envoie de mail concernant la récupération d'un exemplaire
+     * @param accessToken
+     */
+    public void sendMailGetBook(String accessToken){
 
+    }
+
+    /**
+     * Envoi de mail concernant les retards de retour
+     * @param accessToken
+     */
     public void sendMailReturnBook(String accessToken){
 
         List<Emprunt> loans = new ArrayList<>();

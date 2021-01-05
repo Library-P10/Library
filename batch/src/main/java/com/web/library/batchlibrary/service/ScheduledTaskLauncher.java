@@ -35,6 +35,10 @@ public class ScheduledTaskLauncher {
         String token = "Bearer "+ cookie.getValue();
 
         mailService.sendMailReturnBook(token);
+
+        // Mail pour la récupération d'un exemplaire
+        mailService.sendMailGetBook(token);
+
         logger.info("Mail envoyé");
     }
 }

@@ -3,6 +3,8 @@ package com.api.library.controller;
 import com.api.library.config.JwtTokenUtil;
 import com.api.library.dto.CustomerDto;
 import com.api.library.dto.EmpruntDto;
+import com.api.library.service.contract.BookService;
+import com.api.library.service.contract.CopyService;
 import com.api.library.service.contract.CustomerService;
 import com.api.library.service.contract.EmpruntService;
 import com.api.library.service.exception.EmpruntNotFoundException;
@@ -19,6 +21,16 @@ import java.util.List;
 public class EmpruntController {
 
     // ----------------- Injections de dépendances ----------------- //
+
+    private final CopyService copyService;
+    private final BookService bookService;
+
+    @Autowired
+    public EmpruntController(final CopyService copyService, BookService bookService){
+        this.copyService = copyService;
+        this.bookService = bookService;
+    }
+
     @Autowired
     private EmpruntService empruntService;
 
@@ -87,6 +99,15 @@ public class EmpruntController {
     @GetMapping(value = "emprunt/delete/{idEmprunt}")
     public void deleteEmprunt(@PathVariable(name = "idEmprunt") Long idEmprunt){
         empruntService.deleteEmprunt(idEmprunt);
+    }
+
+    /**
+     * Retour d'un prêt
+     * @param idEmprunt
+     */
+    @GetMapping(value = "emprunt/return/{idEmprunt}")
+    public void returnEmprunt(@PathVariable(name = "idEmprunt") Long idEmprunt){
+        empruntService.returnEmprunt(idEmprunt);
     }
 
     /**

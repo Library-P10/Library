@@ -16,7 +16,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-01-05T10:11:45+0100",
+    date = "2021-01-05T16:06:20+0100",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
 )
 public class WaitingListMapperImpl implements WaitingListMapper {
@@ -45,6 +45,7 @@ public class WaitingListMapperImpl implements WaitingListMapper {
 
         waitingListDto.setId( waitingList.getId() );
         waitingListDto.setDateRequest( waitingList.getDateRequest() );
+        waitingListDto.setDateSendingMail( waitingList.getDateSendingMail() );
         waitingListDto.setCustomer( customerToCustomerDto( waitingList.getCustomer() ) );
         waitingListDto.setBook( bookToBookDto( waitingList.getBook() ) );
 
@@ -62,6 +63,7 @@ public class WaitingListMapperImpl implements WaitingListMapper {
         waitingList.setBook( bookDtoToBook( waitingListDto.getBook() ) );
         waitingList.setId( waitingListDto.getId() );
         waitingList.setDateRequest( waitingListDto.getDateRequest() );
+        waitingList.setDateSendingMail( waitingListDto.getDateSendingMail() );
         waitingList.setCustomer( customerDtoToCustomer( waitingListDto.getCustomer() ) );
 
         return waitingList;
