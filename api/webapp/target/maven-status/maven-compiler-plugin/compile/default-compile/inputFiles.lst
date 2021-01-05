@@ -3,6 +3,7 @@
 /home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/controller/EmpruntController.java
 /home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/controller/BookController.java
 /home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/App.java
+/home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/controller/WaitingListController.java
 /home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/config/JwtRequestFilter.java
 /home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/config/WebSecurityConfig.java
 /home/brichet/IdeaProjects/Library/api/webapp/src/main/java/com/api/library/controller/CategorieController.java

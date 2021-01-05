@@ -3,11 +3,13 @@ com/api/library/service/impl/BookServiceImpl.class
 com/api/library/service/contract/JwtUserDetailsService.class
 com/api/library/service/contract/CategorieService.class
 com/api/library/service/contract/EmpruntService.class
+com/api/library/service/contract/WaitingListService.class
 com/api/library/service/impl/JwtUserDetailServiceImpl.class
 com/api/library/service/impl/EmpruntServiceImpl.class
 com/api/library/service/contract/CopyService.class
 com/api/library/service/impl/CopyServiceImpl.class
 com/api/library/service/impl/CategorieServiceImpl.class
+com/api/library/service/impl/WaitingListServiceImpl.class
 com/api/library/service/impl/CustomerServiceImpl.class
 com/api/library/service/contract/CustomerService.class
 com/api/library/App.class

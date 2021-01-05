@@ -27,7 +27,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT b FROM Book b WHERE b.id = :idBook")
     Book getBookById(@Param("idBook")Long idBook);
 
+    //TODO A vérifier
     // Récupère le nombre d'occurence d'un livre qui existe dans la table waitingList
-    @Query("SELECT COUNT(b.waitingLists) AS numberOfBook FROM Book b WHERE b.id = :idBook")
-    Integer getNumberBookInWaitingList(@Param("idBook") Long idBook);
+//    @Query("SELECT COUNT(b.waitingLists) AS numberOfBook FROM Book b WHERE b.id = :idBook")
+//    Integer getNumberBookInWaitingList(@Param("idBook") Long idBook);
 }

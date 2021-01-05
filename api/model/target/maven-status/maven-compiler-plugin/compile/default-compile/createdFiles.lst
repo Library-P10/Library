@@ -1,6 +1,7 @@
 com/api/library/model/Categorie.class
 com/api/library/mapper/EmpruntMapperImpl.class
 com/api/library/model/Copy.class
+com/api/library/mapper/WaitingListMapperImpl.class
 com/api/library/mapper/CustomerMapper.class
 com/api/library/dto/CopyByBookDto.class
 com/api/library/model/Book.class

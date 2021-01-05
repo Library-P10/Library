@@ -7,6 +7,7 @@ public class WaitingListDto {
     private Long id;
     private Date dateRequest;
     private CustomerDto customer;
+    private BookDto book;
 
     public Long getId() {
         return id;
@@ -30,5 +31,13 @@ public class WaitingListDto {
 
     public void setCustomer(final CustomerDto customer) {
         this.customer = customer;
+    }
+
+    public BookDto getBook() {
+        return book;
+    }
+
+    public void setBook(final BookDto book) {
+        this.book = book;
     }
 }

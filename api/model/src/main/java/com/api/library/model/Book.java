@@ -42,19 +42,8 @@ public class Book implements Serializable {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @OneToMany(mappedBy = "book")
-    private List<WaitingList> waitingLists = new ArrayList<>();
-
     public Book() {
 
-    }
-
-    public List<WaitingList> getWaitingLists() {
-        return waitingLists;
-    }
-
-    public void setWaitingLists(final List<WaitingList> waitingLists) {
-        this.waitingLists = waitingLists;
     }
 
     public Book(final Long id, final String title, final Date pubDate,
@@ -69,7 +58,6 @@ public class Book implements Serializable {
         this.cover = cover;
         this.categorie = categorie;
         this.author = author;
-        this.waitingLists = waitingLists;
     }
 
     @Override
@@ -83,7 +71,6 @@ public class Book implements Serializable {
                 ", cover='" + cover + '\'' +
                 ", categorie=" + categorie +
                 ", author=" + author +
-                ", waitingLists=" + waitingLists +
                 '}';
     }
 
