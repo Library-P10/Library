@@ -39,4 +39,17 @@ public class CopyController {
         return copyService.getCopyById(id);
     }
 
+    /**
+     * Retour d'un exemplaire
+     * @param idCopy
+     * @return
+     */
+    @GetMapping(value = "copy/return/{idCopy}")
+    public void returnCopy(@PathVariable("idCopy")Long idCopy) {
+        // Gestion de retour d'un exemplaire
+        // 1) - Envoie d'un mail à la première personne qui est dans la waitingList
+        // 2) - Ajout de la date d'envoie de mail dans la waitingList
+        // 3) - Changer le statut de la copy en "En attente de récupération"
+
+    }
 }
