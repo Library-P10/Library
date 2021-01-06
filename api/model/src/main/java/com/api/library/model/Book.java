@@ -48,8 +48,7 @@ public class Book implements Serializable {
 
     public Book(final Long id, final String title, final Date pubDate,
                 final int page, final String synopsis, final String cover,
-                final Categorie categorie, final Author author,
-                final List<WaitingList> waitingLists) {
+                final Categorie categorie, final Author author) {
         this.id = id;
         this.title = title;
         this.pubDate = pubDate;

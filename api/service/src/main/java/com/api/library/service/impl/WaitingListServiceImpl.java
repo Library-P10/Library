@@ -1,7 +1,11 @@
 package com.api.library.service.impl;
 
+import com.api.library.dto.BookDto;
 import com.api.library.dto.WaitingListDto;
+import com.api.library.mapper.BookMapper;
 import com.api.library.mapper.WaitingListMapper;
+import com.api.library.model.Book;
+import com.api.library.repository.BookRepository;
 import com.api.library.repository.WaitingListRepository;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +19,20 @@ public class WaitingListServiceImpl implements WaitingListService {
     // ----------------- Injections des dépendances ----------------- //
 
     private final WaitingListRepository waitingListRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public WaitingListServiceImpl(WaitingListRepository waitingListRepository){
+    public WaitingListServiceImpl(WaitingListRepository waitingListRepository, BookRepository bookRepository){
         this.waitingListRepository = waitingListRepository;
+        this.bookRepository = bookRepository;
     }
 
     // -----------------------------------------------------  //
 
     @Override
     public List<WaitingListDto> getWaitingListByIdBook(final Long idBook) {
-        return WaitingListMapper.INSTANCE.map((waitingListRepository.getWaitingListByIdBook(idBook)));
+        return WaitingListMapper.
+                INSTANCE.map(waitingListRepository.getWaitingListByIdBook(idBook));
     }
 
     @Override

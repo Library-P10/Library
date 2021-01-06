@@ -1,5 +1,6 @@
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/contract/CategorieService.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/impl/BookServiceImpl.java
+/home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/contract/MailService.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/impl/CustomerServiceImpl.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/impl/WaitingListServiceImpl.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/contract/JwtUserDetailsService.java
@@ -7,6 +8,7 @@
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/contract/WaitingListService.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/impl/CopyServiceImpl.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/impl/CategorieServiceImpl.java
+/home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/impl/MailServiceImpl.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/contract/BookService.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/service/contract/EmpruntService.java
 /home/brichet/IdeaProjects/Library/api/service/src/main/java/com/api/library/App.java

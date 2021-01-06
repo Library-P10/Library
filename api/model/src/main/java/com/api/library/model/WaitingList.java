@@ -1,11 +1,14 @@
 package com.api.library.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "waiting_list")
-public class WaitingList {
+public class WaitingList implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,17 +29,6 @@ public class WaitingList {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @Override
-    public String toString() {
-        return "WaitingList{" +
-                "id=" + id +
-                ", dateRequest=" + dateRequest +
-                ", dateSendingMail" + dateSendingMail +
-                ", customer=" + customer +
-                ", book=" + book +
-                '}';
-    }
-
     public WaitingList() {
     }
 
@@ -48,12 +40,19 @@ public class WaitingList {
         this.book = book;
     }
 
-    public Book getBook() {
-        return book;
+    @Override
+    public String toString() {
+        return "WaitingList{" +
+                "id=" + id +
+                ", dateRequest=" + dateRequest +
+                ", dateSendingMail=" + dateSendingMail +
+                ", customer=" + customer +
+                ", book=" + book +
+                '}';
     }
 
-    public void setBook(final Book book) {
-        this.book = book;
+    public void setCustomer(final com.api.library.model.Customer customer) {
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -62,6 +61,18 @@ public class WaitingList {
 
     public void setId(final Long id) {
         this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(final Book book) {
+        this.book = book;
     }
 
     public Date getDateRequest() {
@@ -80,11 +91,4 @@ public class WaitingList {
         this.dateSendingMail = dateSendingMail;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(final Customer customer) {
-        this.customer = customer;
-    }
 }
