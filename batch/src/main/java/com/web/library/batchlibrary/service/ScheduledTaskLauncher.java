@@ -16,7 +16,7 @@ import java.util.Map;
 @Component
 @EnableScheduling
 public class ScheduledTaskLauncher {
-    private static Logger logger = LoggerFactory.getLogger(ScheduledTaskLauncher.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScheduledTaskLauncher.class);
 
     @Autowired
     private FeignProxy feignProxy;

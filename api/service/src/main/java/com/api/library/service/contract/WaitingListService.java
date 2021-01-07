@@ -19,4 +19,23 @@ public interface WaitingListService {
      * @return
      */
     Integer getNumberBookInWaitingList(Long idBook);
+
+    /**
+     * Supprime la réservation dans la liste d'attente (WaitingList)
+     * @param idWaitingList
+     */
+    void deleteWaitingList (Long idWaitingList);
+
+    /**
+     * Envoie un mail au prochain customer de la liste
+     * @param idBook
+     */
+    void sendMailForNextCustomer(Long idBook);
+
+    /**
+     * Récupère la liste d'attente par son id
+     * @param idWaiting
+     * @return
+     */
+    WaitingListDto getWaitingListById(Long idWaiting);
 }
