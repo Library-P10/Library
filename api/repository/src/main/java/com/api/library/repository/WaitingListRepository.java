@@ -26,6 +26,7 @@ public interface WaitingListRepository extends JpaRepository<WaitingList, Long> 
     // Récupération du premier à être sur la liste d'attente
     @Query("SELECT w FROM WaitingList w WHERE w.book.id = :idBook ORDER BY w.dateRequest asc")
     WaitingList findFirstByIdBook(@Param("idBook") Long idBook);
+
     // Change les données du premier à être sur la liste d'attente
     @Transactional
     @Modifying
@@ -34,4 +35,8 @@ public interface WaitingListRepository extends JpaRepository<WaitingList, Long> 
     void updateWaitingListAfterSendMail(@Param("idWaitingList") Long idWaitingList,
                                         @Param("date") Date date,
                                         @Param("dateRecoveryLimit") Date dateRecoveryLimit);
+
+    // Récupère tout les réservation dont la date de recovery Limit est dépassée
+    @Query("SELECT w FROM WaitingList w WHERE w.dateRecoveryLimit <= CURRENT_TIMESTAMP ")
+    WaitingList getAllWaitingThatDateRecoveryLimit();
 }
