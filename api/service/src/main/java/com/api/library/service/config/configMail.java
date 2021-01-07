@@ -14,8 +14,8 @@ public class configMail {
     public JavaMailSender getJavaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost("smtp.mailtrap.io");
+        mailSender.setPort(2525);
 
         mailSender.setUsername("559e1d13c45051");
         mailSender.setPassword("2d34d2ca325eec");

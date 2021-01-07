@@ -21,6 +21,9 @@ public class WaitingList implements Serializable {
     @Column(name = "date_sending_mail")
     private Date dateSendingMail;
 
+    @Column(name="date_recovery_limit")
+    private Date dateRecoveryLimit;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -32,10 +35,12 @@ public class WaitingList implements Serializable {
     public WaitingList() {
     }
 
-    public WaitingList(final Long id, final Date dateRequest, final Date dateSendingMail, final Customer customer, final Book book) {
+    public WaitingList(final Long id, final Date dateRequest, final Date dateSendingMail,
+                       final Date dateRecoveryLimit, final Customer customer, final Book book) {
         this.id = id;
         this.dateRequest = dateRequest;
         this.dateSendingMail = dateSendingMail;
+        this.dateRecoveryLimit = dateRecoveryLimit;
         this.customer = customer;
         this.book = book;
     }
@@ -46,6 +51,7 @@ public class WaitingList implements Serializable {
                 "id=" + id +
                 ", dateRequest=" + dateRequest +
                 ", dateSendingMail=" + dateSendingMail +
+                ", dateRecoveryLimit=" + dateRecoveryLimit +
                 ", customer=" + customer +
                 ", book=" + book +
                 '}';
@@ -91,4 +97,11 @@ public class WaitingList implements Serializable {
         this.dateSendingMail = dateSendingMail;
     }
 
+    public Date getDateRecoveryLimit() {
+        return dateRecoveryLimit;
+    }
+
+    public void setDateRecoveryLimit(final Date dateRecoveryLimit) {
+        this.dateRecoveryLimit = dateRecoveryLimit;
+    }
 }
