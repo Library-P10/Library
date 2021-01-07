@@ -52,6 +52,7 @@ public class WaitingListController {
     public void changerCustomerInWaitingList(@PathVariable("idWaitingList")Long idWaiting){
     // 1 - Supprimer la réservation dont le temps de récupération à changer
     // 2 - Envoyer un mail au second
+
         // On récupère la réservation à annuler
         WaitingListDto waitingListDto = waitingListService.getWaitingListById(idWaiting);
 

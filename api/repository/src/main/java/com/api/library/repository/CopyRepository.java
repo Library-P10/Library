@@ -49,4 +49,8 @@ public interface CopyRepository extends JpaRepository<Copy, Long> {
     @Query("SELECT COUNT(c.book.id) AS numberCopy FROM Copy c WHERE (c.book.id = :idBook)")
     Integer getNumberCopyByBook(@Param("idBook") Long idBook);
 
+    // Récupère la copy selon son status
+    @Query("SELECT c FROM Copy c WHERE (c.book.id = :idBook) AND (c.status= :status)")
+    Copy getCopyByStatus(@Param("idBook") Long idBook,
+                         @Param("status") String status);
 }
