@@ -3,11 +3,13 @@ package com.api.library.controller;
 import com.api.library.dto.WaitingListDto;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -45,22 +47,33 @@ public class WaitingListController {
     }
 
     /**
-     * Supprime la réservation pas récupérer dans les 48h et envoi un mail au suivant
-     * @param idWaiting
+     * Récupère les réservations dont la dateRecoveryLimit est dépassée
+     * @return
      */
-    @PostMapping(value = "waitingList/changeCustomer/{idWaiting}")
-    public void changerCustomerInWaitingList(@PathVariable("idWaitingList")Long idWaiting){
+    @GetMapping(value = "waitingList/retardGet")
+    public List<WaitingListDto> getDateRecoveryLimit(){
+        return waitingListService.getWaitingListByDateRecoveryLimitExceeded();
+    }
+
+    /**
+     * Supprime la réservation pas récupérer dans les 48h et envoi un mail au suivant
+     * @param waitingListDtos
+     */
+    @PostMapping(value = "waitingList/changeCustomer")
+    public void changerCustomerInWaitingList(@Param("waitingList") List<WaitingListDto> waitingListDtos,
+                                             HttpServletRequest httpServletRequest){
     // 1 - Supprimer la réservation dont le temps de récupération à changer
     // 2 - Envoyer un mail au second
 
-        // On récupère la réservation à annuler
-        WaitingListDto waitingListDto = waitingListService.getWaitingListById(idWaiting);
+        // Pour chaque liste de réservation
+        for (WaitingListDto waitingListDto : waitingListDtos){
 
-        //On supprime la réservation de la date dépassée
-        waitingListService.deleteWaitingList(idWaiting);
+            // On envoi un mail au suivant si il existe sinon le livre est disponible
+            waitingListService.sendMailForNextCustomer(waitingListDto.getBook().getId());
 
-        // On envoi un mail au suivant si il existe sinon le livre est disponible
-        waitingListService.sendMailForNextCustomer(waitingListDto.getBook().getId());
+            //On supprime la réservation de la date dépassée
+            waitingListService.deleteWaitingList(waitingListDto.getId());
+        }
     }
 
 }

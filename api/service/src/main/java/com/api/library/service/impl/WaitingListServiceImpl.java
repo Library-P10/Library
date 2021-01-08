@@ -102,4 +102,13 @@ public class WaitingListServiceImpl implements WaitingListService {
         return WaitingListMapper.INSTANCE.waitingListToWaitingListDto(waitingList);
     }
 
+    /**
+     * Récupère les réservations dont la dateRecoveryLimit est dépassée
+     * @return
+     */
+    @Override
+    public List<WaitingListDto> getWaitingListByDateRecoveryLimitExceeded() {
+        return WaitingListMapper.INSTANCE.map(waitingListRepository.getWaitingListByDateRecoveryLimitExceeded());
+    }
+
 }

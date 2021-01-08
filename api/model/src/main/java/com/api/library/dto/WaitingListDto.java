@@ -7,6 +7,7 @@ public class WaitingListDto {
     private Long id;
     private Date dateRequest;
     private Date dateSendingMail;
+    private Date dateRecoveryLimit;
     private CustomerDto customer;
     private BookDto book;
 
@@ -32,6 +33,14 @@ public class WaitingListDto {
 
     public void setDateSendingMail(final Date dateSendingMail) {
         this.dateSendingMail = dateSendingMail;
+    }
+
+    public Date getDateRecoveryLimit() {
+        return dateRecoveryLimit;
+    }
+
+    public void setDateRecoveryLimit(final Date dateRecoveryLimit) {
+        this.dateRecoveryLimit = dateRecoveryLimit;
     }
 
     public CustomerDto getCustomer() {

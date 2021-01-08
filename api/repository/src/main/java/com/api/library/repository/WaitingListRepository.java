@@ -36,9 +36,9 @@ public interface WaitingListRepository extends JpaRepository<WaitingList, Long> 
                                         @Param("date") Date date,
                                         @Param("dateRecoveryLimit") Date dateRecoveryLimit);
 
-    // Récupère tout les réservation dont la date de recovery Limit est dépassée
+    // Récupère toutes les réservation dont la date de recovery Limit est dépassée
     @Query("SELECT w FROM WaitingList w WHERE w.dateRecoveryLimit <= CURRENT_TIMESTAMP ")
-    WaitingList getAllWaitingThatDateRecoveryLimit();
+    List<WaitingList> getWaitingListByDateRecoveryLimitExceeded();
 
     // Récupère la réservation par son id
     @Query("SELECT w FROM WaitingList w WHERE w.id =:idWaitingList")

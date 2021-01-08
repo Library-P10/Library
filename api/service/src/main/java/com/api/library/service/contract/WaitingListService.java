@@ -38,4 +38,10 @@ public interface WaitingListService {
      * @return
      */
     WaitingListDto getWaitingListById(Long idWaiting);
+
+    /**
+     * getWaitingListByDateRecoveryLimitExceeded
+     * @return
+     */
+    List<WaitingListDto> getWaitingListByDateRecoveryLimitExceeded();
 }

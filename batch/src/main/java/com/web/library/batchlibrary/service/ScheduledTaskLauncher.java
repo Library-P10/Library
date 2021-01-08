@@ -1,6 +1,7 @@
 package com.web.library.batchlibrary.service;
 
 import com.web.library.batchlibrary.model.LoginBean;
+import com.web.library.batchlibrary.model.WaitingList;
 import com.web.library.batchlibrary.proxy.FeignProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -29,6 +31,9 @@ public class ScheduledTaskLauncher {
     @Scheduled(cron = "*/30 * * * * ?")
     public void runScheduledTask(){
 
+        /**
+         * Envoie de mail de relance
+         */
         ResponseEntity<?> testToken = feignProxy.validationAuthentication(new LoginBean());
 
         Cookie cookie = new Cookie("Token", ((Map<String,String>) testToken.getBody()).get("token"));
@@ -40,5 +45,14 @@ public class ScheduledTaskLauncher {
         mailService.sendMailGetBook(token);
 
         logger.info("Mail envoyé");
+
+        /**
+         * Vérification des récupération des livres dans la waitingList (48h)
+         */
+
+        // On récupère toutes les réservations en attente dont le livres n'a pas été récupérer
+        // dans les 48h ( Get dateRecoveryLimit )
+        List<WaitingList> waitingLists = feignProxy.getWaitingListByDateRecoveryLimitExceeded(token);
+        feignProxy.changerCustomerInWaitingList(waitingLists, token);
     }
 }

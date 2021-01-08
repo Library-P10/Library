@@ -7,6 +7,7 @@ public class WaitingList {
     private Long id;
     private Date dateRequest;
     private Date dateSendingMail;
+    private Date dateRecoveryLimit;
     private Customer customer;
     private Book book;
 
@@ -14,11 +15,14 @@ public class WaitingList {
     }
 
     public WaitingList(final Long id, final Date dateRequest,
-                       final Date dateSendingMail, final Customer customer,
+                       final Date dateSendingMail,
+                       final Date dateRecoveryLimit,
+                       final Customer customer,
                        final Book book) {
         this.id = id;
         this.dateRequest = dateRequest;
         this.dateSendingMail = dateSendingMail;
+        this.dateRecoveryLimit = dateRecoveryLimit;
         this.customer = customer;
         this.book = book;
     }
@@ -45,6 +49,14 @@ public class WaitingList {
 
     public void setDateSendingMail(final Date dateSendingMail) {
         this.dateSendingMail = dateSendingMail;
+    }
+
+    public Date getDateRecoveryLimit() {
+        return dateRecoveryLimit;
+    }
+
+    public void setDateRecoveryLimit(final Date dateRecoveryLimit) {
+        this.dateRecoveryLimit = dateRecoveryLimit;
     }
 
     public Customer getCustomer() {
