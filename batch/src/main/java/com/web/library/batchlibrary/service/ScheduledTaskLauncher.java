@@ -53,6 +53,8 @@ public class ScheduledTaskLauncher {
         // On récupère toutes les réservations en attente dont le livres n'a pas été récupérer
         // dans les 48h ( Get dateRecoveryLimit )
         List<WaitingList> waitingLists = feignProxy.getWaitingListByDateRecoveryLimitExceeded(token);
-        feignProxy.changerCustomerInWaitingList(waitingLists, token);
+        feignProxy.changerCustomerInWaitingList(token, waitingLists);
+
+        logger.info("Mail envoyé au suivant");
     }
 }

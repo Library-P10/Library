@@ -65,7 +65,7 @@ public class WaitingListServiceImpl implements WaitingListService {
      */
     @Override
     public void sendMailForNextCustomer(final Long idBook) {
-        String status = "En attente de récupération";
+        String status = "Waiting";
 
         Copy copy =copyRepository.getCopyByStatus(idBook, status);
 
@@ -82,7 +82,10 @@ public class WaitingListServiceImpl implements WaitingListService {
 
 
             // Récupération du premier à être sur la liste d'attente
-            WaitingList waitingList =waitingListRepository.findFirstByIdBook(idBook);
+            List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBook(idBook);
+            WaitingList waitingList = waitingLists.get(0);
+            // Change les données sur les mail envoyé et date de récupération Max
+            waitingListRepository.updateWaitingListAfterSendMail(waitingList.getId(), date, dateRecoveryLimit);
             // Change les données du premier à être sur la liste d'attente
             waitingListRepository.updateWaitingListAfterSendMail(waitingList.getId(), date, dateRecoveryLimit);
 

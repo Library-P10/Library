@@ -28,6 +28,6 @@ public interface FeignProxy {
     List<WaitingList> getWaitingListByDateRecoveryLimitExceeded(@RequestHeader("Authorization")String accessToken);
 
     @PostMapping(value = "waitingList/changeCustomer")
-    List<WaitingList> changerCustomerInWaitingList(@Param("waitingList") List<WaitingList> waitingLists,
-                                                   @RequestHeader("Authorization") String accessToken);
+    List<WaitingList> changerCustomerInWaitingList(@RequestHeader("Authorization") String accessToken,
+                                                   @RequestBody List<WaitingList> waitingLists);
 }

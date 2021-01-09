@@ -7,6 +7,7 @@ com/api/library/service/contract/WaitingListService.class
 com/api/library/service/impl/JwtUserDetailServiceImpl.class
 com/api/library/service/contract/MailService.class
 com/api/library/service/impl/MailServiceImpl.class
+com/api/library/service/config/configMail.class
 com/api/library/service/impl/EmpruntServiceImpl.class
 com/api/library/service/contract/CopyService.class
 com/api/library/service/impl/CopyServiceImpl.class

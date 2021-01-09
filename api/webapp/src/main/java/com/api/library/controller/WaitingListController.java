@@ -4,10 +4,7 @@ import com.api.library.dto.WaitingListDto;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -51,7 +48,7 @@ public class WaitingListController {
      * @return
      */
     @GetMapping(value = "waitingList/retardGet")
-    public List<WaitingListDto> getDateRecoveryLimit(){
+    public List<WaitingListDto> getDateRecoveryLimit(HttpServletRequest httpServletRequest){
         return waitingListService.getWaitingListByDateRecoveryLimitExceeded();
     }
 
@@ -60,8 +57,8 @@ public class WaitingListController {
      * @param waitingListDtos
      */
     @PostMapping(value = "waitingList/changeCustomer")
-    public void changerCustomerInWaitingList(@Param("waitingList") List<WaitingListDto> waitingListDtos,
-                                             HttpServletRequest httpServletRequest){
+    public void changerCustomerInWaitingList(@RequestBody List<WaitingListDto> waitingListDtos,
+                                             HttpServletRequest httpServletRequest) throws Exception{
     // 1 - Supprimer la réservation dont le temps de récupération à changer
     // 2 - Envoyer un mail au second
 

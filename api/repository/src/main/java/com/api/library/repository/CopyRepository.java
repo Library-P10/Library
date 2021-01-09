@@ -42,7 +42,7 @@ public interface CopyRepository extends JpaRepository<Copy, Long> {
     // Update status en "En attente de récupération"
     @Transactional
     @Modifying
-    @Query("UPDATE Copy c SET c.status = 'En attente récupération' WHERE c.id = :idCopy")
+    @Query("UPDATE Copy c SET c.status = 'Waiting' WHERE c.id = :idCopy")
     void updateStatusWaitingList(@Param("idCopy")Long idCopy);
 
     // Récupération du nombre d'occurence de book exsitant dans les librairies
