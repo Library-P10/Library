@@ -11,5 +11,6 @@ public interface CopyService {
     List<CopyByBookDto> getCopyByIdBook (Long id);
     // Récupère l'exemplaire selon l'id du libre
     CopyDto getCopyById( Long idCopy);
-
+    // Récupère le nombre d'exemplaire de l'ouvrage
+    int getNumberCopyByIdBook (Long idBook);
 }

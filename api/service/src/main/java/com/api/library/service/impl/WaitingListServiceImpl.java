@@ -112,4 +112,21 @@ public class WaitingListServiceImpl implements WaitingListService {
         return WaitingListMapper.INSTANCE.map(waitingListRepository.getWaitingListByDateRecoveryLimitExceeded());
     }
 
+    @Override
+    public Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable) {
+
+        // On multiplie par 2 le nombre de réservation possible selon le nombre d'exemplaire
+        numberOfWaitinListAvailable = numberOfWaitinListAvailable * 2;
+
+        // Si le nombre de réservation en attente est égale au nombre de réservation possible
+        // Return false
+        // Sinon
+        // Return true
+        if (numberOfWaitinListAvailable <= numberBookInWaitingList){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 }

@@ -44,4 +44,6 @@ public interface WaitingListService {
      * @return
      */
     List<WaitingListDto> getWaitingListByDateRecoveryLimitExceeded();
+
+    Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable);
 }

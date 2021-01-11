@@ -1,6 +1,7 @@
 package com.api.library.controller;
 
 import com.api.library.dto.WaitingListDto;
+import com.api.library.service.contract.CopyService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -15,10 +16,13 @@ public class WaitingListController {
     // ----------------- Injections des dépendances ----------------- //
 
     private final WaitingListService waitingListService;
+    private final CopyService copyService;
 
     @Autowired
-    public WaitingListController(WaitingListService waitingListService){
+    public WaitingListController(WaitingListService waitingListService,
+                                 CopyService copyService){
         this.waitingListService = waitingListService;
+        this.copyService = copyService;
     }
 
     // -----------------------------------------------------  //
@@ -70,6 +74,29 @@ public class WaitingListController {
             // On envoi un mail au suivant si il existe sinon le livre est disponible
             waitingListService.sendMailForNextCustomer(waitingListDto.getBook().getId());
         }
+    }
+
+    /**
+     * Vérification de la possible mise en attente de réservation
+     * Selon le nombre d'exemplaire de l'ouvrage
+     * @param idBook
+     * @return
+     */
+    @GetMapping(value = "waitingList/available")
+    public Boolean newWaitingListAvailable (@Param("idBook") Long idBook){
+
+        Boolean insertAvailable;
+        int numberOfWaitinListAvailable;
+        int numberBookInWaitingList;
+
+        // Récupération du nombre d'exemplaires de l'ouvrage
+        numberOfWaitinListAvailable = copyService.getNumberCopyByIdBook(idBook);
+        // Récupération du nombre de réservation en attente
+        numberBookInWaitingList = waitingListService.getNumberBookInWaitingList(idBook);
+
+        insertAvailable = waitingListService.insertInWaitingListAvailable(numberBookInWaitingList, numberOfWaitinListAvailable);
+
+        return insertAvailable;
     }
 
 }
