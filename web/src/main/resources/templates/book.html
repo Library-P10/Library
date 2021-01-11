@@ -29,7 +29,7 @@
             <table class="table table-dark">
                 <thead>
                 <tr>
-                    <th scope="col">Nombre d'exemplaire</th>
+                    <th scope="col">Nombre d'exemplaire disponible(s)</th>
                     <th scope="col">Format</th>
                     <th scope="col">Bibliothèque</th>
                 </tr>
@@ -44,6 +44,25 @@
                 </div>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+<!--    Affichage si réservation possible-->
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div th:if="${!session.isEmpty()}">
+<!--            Si réservation possible-->
+                <div th:if="${insertAvailable}">
+                    <div th:each="book : ${book}">
+                        <div class="nav-item active"><a class="nav-link"
+                                                        th:href="@{'/waitingList/insert/'+${book.id}}">Réserver ce livre</a></div>
+                    </div>
+                </div>
+<!--            Si réservation pas possible-->
+                <div th:unless="${insertAvailable}">
+                    <div>Pas de réservation possible</div>
+                </div>
+            </div>
         </div>
     </div>
 

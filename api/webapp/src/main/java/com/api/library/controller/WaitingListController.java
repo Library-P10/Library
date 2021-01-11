@@ -1,11 +1,9 @@
 package com.api.library.controller;
 
 import com.api.library.dto.WaitingListDto;
-import com.api.library.model.WaitingList;
 import com.api.library.service.contract.CopyService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,8 +82,8 @@ public class WaitingListController {
      * @return
      */
     @GetMapping(value = "waitingList/available")
-    public Boolean newWaitingListAvailable (@Param("idBook") Long idBook,
-                                            @Param("idCustomer") Long idCustomer){
+    public Boolean newWaitingListAvailable (@RequestParam(name = "idBook") Long idBook,
+                                            @RequestParam(name = "idCustomer") Long idCustomer){
 
         Boolean insertAvailable;
         int numberOfWaitinListAvailable;
