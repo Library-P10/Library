@@ -1,6 +1,7 @@
 package com.api.library.service.contract;
 
 import com.api.library.dto.WaitingListDto;
+import com.api.library.model.WaitingList;
 
 import java.util.List;
 
@@ -45,5 +46,8 @@ public interface WaitingListService {
      */
     List<WaitingListDto> getWaitingListByDateRecoveryLimitExceeded();
 
-    Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable);
+    Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable,
+                                         Long idBook, Long idCustomer);
+
+    WaitingListDto getWaitingListByIdCustomerAndIdBook(Long idCustomer, Long idBook);
 }

@@ -1,6 +1,7 @@
 package com.api.library.controller;
 
 import com.api.library.dto.WaitingListDto;
+import com.api.library.model.WaitingList;
 import com.api.library.service.contract.CopyService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,8 @@ public class WaitingListController {
      * @return
      */
     @GetMapping(value = "waitingList/available")
-    public Boolean newWaitingListAvailable (@Param("idBook") Long idBook){
+    public Boolean newWaitingListAvailable (@Param("idBook") Long idBook,
+                                            @Param("idCustomer") Long idCustomer){
 
         Boolean insertAvailable;
         int numberOfWaitinListAvailable;
@@ -93,8 +95,11 @@ public class WaitingListController {
         numberOfWaitinListAvailable = copyService.getNumberCopyByIdBook(idBook);
         // Récupération du nombre de réservation en attente
         numberBookInWaitingList = waitingListService.getNumberBookInWaitingList(idBook);
+        // Récupération de l'utilisateur
+        WaitingListDto waitingList = waitingListService.getWaitingListByIdCustomerAndIdBook(idCustomer, idBook);
 
-        insertAvailable = waitingListService.insertInWaitingListAvailable(numberBookInWaitingList, numberOfWaitinListAvailable);
+        insertAvailable = waitingListService.insertInWaitingListAvailable(numberBookInWaitingList,
+                numberOfWaitinListAvailable, idBook, idCustomer);
 
         return insertAvailable;
     }

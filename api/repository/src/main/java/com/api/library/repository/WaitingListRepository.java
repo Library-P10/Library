@@ -43,4 +43,9 @@ public interface WaitingListRepository extends JpaRepository<WaitingList, Long> 
     // Récupère la réservation par son id
     @Query("SELECT w FROM WaitingList w WHERE w.id =:idWaitingList")
     WaitingList getWaitingListById(@Param("idWaitingList") Long idWaitingList);
+
+    // Récupère la liste d'attente si elle existe selon l'utilisateur et le livre
+    @Query("SELECT w FROM WaitingList w WHERE (w.customer.id = :idCustomer) AND (w.book.id = :idBook)")
+    WaitingList getWaitingListByIdCustomerAndIdBook(@Param("idCustomer") Long idCustomer,
+                                                    @Param("idBook") Long idBook);
 }

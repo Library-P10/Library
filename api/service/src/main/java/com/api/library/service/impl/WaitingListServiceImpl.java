@@ -1,11 +1,16 @@
 package com.api.library.service.impl;
 
+import com.api.library.dto.CustomerDto;
+import com.api.library.dto.EmpruntDto;
 import com.api.library.dto.WaitingListDto;
 import com.api.library.mapper.EmpruntMapper;
 import com.api.library.mapper.WaitingListMapper;
 import com.api.library.model.Copy;
 import com.api.library.model.WaitingList;
-import com.api.library.repository.*;
+import com.api.library.repository.BookRepository;
+import com.api.library.repository.CopyRepository;
+import com.api.library.repository.EmpruntRepository;
+import com.api.library.repository.WaitingListRepository;
 import com.api.library.service.contract.MailService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +26,17 @@ public class WaitingListServiceImpl implements WaitingListService {
     // ----------------- Injections des dépendances ----------------- //
 
     private final WaitingListRepository waitingListRepository;
-    private final BookRepository bookRepository;
+    private final EmpruntRepository empruntRepository;
     private final CopyRepository copyRepository;
     private final MailService mailService;
 
     @Autowired
     public WaitingListServiceImpl(WaitingListRepository waitingListRepository,
-                                  BookRepository bookRepository,
+                                  EmpruntRepository empruntRepository,
                                   CopyRepository copyRepository,
                                   MailService mailService){
         this.waitingListRepository = waitingListRepository;
-        this.bookRepository = bookRepository;
+        this.empruntRepository = empruntRepository;
         this.copyRepository = copyRepository;
         this.mailService = mailService;
     }
@@ -113,20 +118,43 @@ public class WaitingListServiceImpl implements WaitingListService {
     }
 
     @Override
-    public Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable) {
+    public Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable,
+                                                Long idBook, Long idCustomer) {
 
         // On multiplie par 2 le nombre de réservation possible selon le nombre d'exemplaire
         numberOfWaitinListAvailable = numberOfWaitinListAvailable * 2;
 
-        // Si le nombre de réservation en attente est égale au nombre de réservation possible
+        // Si le nombre de réservation en attente est égale ou supérieur au nombre de réservation possible
+        // ou si l'utilisateur à déjà réservé ou à déjà le livre en emprunt
         // Return false
         // Sinon
         // Return true
-        if (numberOfWaitinListAvailable <= numberBookInWaitingList){
+
+        // Récupération de la réservation en attente si elle existe selon idBook et idCustomer
+        WaitingListDto waitingListDto = WaitingListMapper.INSTANCE.waitingListToWaitingListDto(
+                waitingListRepository.getWaitingListByIdCustomerAndIdBook(idCustomer, idBook));
+
+        // Récupération de l'emprunt si elle existe selon idBook et idCustomer
+        EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(
+                empruntRepository.getEmpruntByIdCustomerByIdBook(idCustomer, idBook));
+
+        if ( (waitingListDto !=null) || (empruntDto != null) || (numberOfWaitinListAvailable == numberBookInWaitingList)) {
             return false;
-        }else {
+        }
+        else {
             return true;
         }
+    }
+
+    /**
+     * Récupération d'une liste d'attente selon l'utilisateur
+     * @param idCustomer
+     * @return
+     */
+    @Override
+    public WaitingListDto getWaitingListByIdCustomerAndIdBook(Long idCustomer, Long idBook) {
+        return WaitingListMapper.INSTANCE.waitingListToWaitingListDto
+                (waitingListRepository.getWaitingListByIdCustomerAndIdBook(idCustomer, idBook));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.api.library.repository;
 
+import com.api.library.dto.EmpruntDto;
 import com.api.library.model.Emprunt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,9 @@ public interface EmpruntRepository extends JpaRepository<Emprunt,Long> {
     // Récupère un prêt selon son idCopy
     @Query("SELECT e FROM Emprunt e WHERE e.copy.id = :idCopy")
     Emprunt getEmpruntByIdCopy(@Param("idCopy")Long idCopy);
+
+    // Récupère l'emprunt selon l'id customer et id Book
+    @Query("SELECT e FROM Emprunt e WHERE (e.customer.id = :idCustomer) AND (e.copy.book.id = :idBook)")
+    Emprunt getEmpruntByIdCustomerByIdBook(@Param("idCustomer") Long idCustomer,
+                                              @Param("idBook") Long idBook);
 }
