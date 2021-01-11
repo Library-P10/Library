@@ -95,8 +95,6 @@ public class WaitingListController {
         numberOfWaitinListAvailable = copyService.getNumberCopyByIdBook(idBook);
         // Récupération du nombre de réservation en attente
         numberBookInWaitingList = waitingListService.getNumberBookInWaitingList(idBook);
-        // Récupération de l'utilisateur
-        WaitingListDto waitingList = waitingListService.getWaitingListByIdCustomerAndIdBook(idCustomer, idBook);
 
         insertAvailable = waitingListService.insertInWaitingListAvailable(numberBookInWaitingList,
                 numberOfWaitinListAvailable, idBook, idCustomer);
@@ -104,4 +102,16 @@ public class WaitingListController {
         return insertAvailable;
     }
 
+    /**
+     * Ajout d'une réservation dans la liste d'attente
+     * @param idBook
+     * @param idCustomer
+     * @return
+     */
+    @PostMapping(value = "waitingList/insert/{idBook}")
+    public WaitingListDto insertNewWaitingList (@PathVariable("idBook") Long idBook,
+                                                @RequestParam(name = "idCustomer") Long idCustomer){
+
+        return waitingListService.insertWaitingList(idBook, idCustomer);
+    }
 }

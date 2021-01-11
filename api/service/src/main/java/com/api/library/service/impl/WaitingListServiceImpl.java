@@ -1,16 +1,16 @@
 package com.api.library.service.impl;
 
-import com.api.library.dto.CustomerDto;
 import com.api.library.dto.EmpruntDto;
 import com.api.library.dto.WaitingListDto;
+import com.api.library.mapper.BookMapper;
+import com.api.library.mapper.CustomerMapper;
 import com.api.library.mapper.EmpruntMapper;
 import com.api.library.mapper.WaitingListMapper;
+import com.api.library.model.Book;
 import com.api.library.model.Copy;
 import com.api.library.model.WaitingList;
-import com.api.library.repository.BookRepository;
-import com.api.library.repository.CopyRepository;
-import com.api.library.repository.EmpruntRepository;
-import com.api.library.repository.WaitingListRepository;
+import com.api.library.repository.*;
+import com.api.library.service.contract.BookService;
 import com.api.library.service.contract.MailService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +29,22 @@ public class WaitingListServiceImpl implements WaitingListService {
     private final EmpruntRepository empruntRepository;
     private final CopyRepository copyRepository;
     private final MailService mailService;
+    private final BookRepository bookRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
     public WaitingListServiceImpl(WaitingListRepository waitingListRepository,
                                   EmpruntRepository empruntRepository,
                                   CopyRepository copyRepository,
-                                  MailService mailService){
+                                  MailService mailService,
+                                  BookRepository bookRepository,
+                                  CustomerRepository customerRepository){
         this.waitingListRepository = waitingListRepository;
         this.empruntRepository = empruntRepository;
         this.copyRepository = copyRepository;
         this.mailService = mailService;
+        this.bookRepository = bookRepository;
+        this.customerRepository = customerRepository;
     }
 
     // -----------------------------------------------------  //
@@ -155,6 +161,28 @@ public class WaitingListServiceImpl implements WaitingListService {
     public WaitingListDto getWaitingListByIdCustomerAndIdBook(Long idCustomer, Long idBook) {
         return WaitingListMapper.INSTANCE.waitingListToWaitingListDto
                 (waitingListRepository.getWaitingListByIdCustomerAndIdBook(idCustomer, idBook));
+    }
+
+    /**
+     * Ajout d'une réservation dans la liste d'attente
+     * @param idBook
+     * @param idCustomer
+     * @return
+     */
+    @Override
+    public WaitingListDto insertWaitingList(final Long idBook, final Long idCustomer) {
+
+        WaitingListDto waitingListDto = new WaitingListDto();
+        Date date = new Date();
+
+        waitingListDto.setBook(BookMapper.INSTANCE.bookToBookDto(bookRepository.getBookById(idBook)));
+        waitingListDto.setCustomer(CustomerMapper.INSTANCE.customerToCustomerDto(
+                customerRepository.findCustomerById(idCustomer)));
+        waitingListDto.setDateRequest(date);
+
+        waitingListRepository.save(WaitingListMapper.INSTANCE.waitingListDtoToWaitingList(waitingListDto));
+
+        return waitingListDto;
     }
 
 }

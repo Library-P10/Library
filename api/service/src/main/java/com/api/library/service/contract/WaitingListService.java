@@ -50,4 +50,6 @@ public interface WaitingListService {
                                          Long idBook, Long idCustomer);
 
     WaitingListDto getWaitingListByIdCustomerAndIdBook(Long idCustomer, Long idBook);
+
+    WaitingListDto insertWaitingList(Long idBook, Long idCustomer);
 }
