@@ -41,7 +41,7 @@ public class WaitingListServiceImpl implements WaitingListService {
     @Override
     public List<WaitingListDto> getWaitingListByIdBook(final Long idBook) {
         return WaitingListMapper.
-                INSTANCE.map(waitingListRepository.getWaitingListByIdBook(idBook));
+                INSTANCE.map(waitingListRepository.getWaitingListByIdBookByDateRequest(idBook));
     }
 
     @Override
@@ -68,8 +68,9 @@ public class WaitingListServiceImpl implements WaitingListService {
         String status = "Waiting";
 
         Copy copy =copyRepository.getCopyByStatus(idBook, status);
+        List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBookByDateRequest(idBook);
 
-        if (waitingListRepository.getWaitingListByIdBook(idBook) == null){
+        if (waitingLists == null){
             copyRepository.updateStatusAvailable(copy.getId());
         }else {
             copyRepository.updateStatusWaitingList(copy.getId());
@@ -82,10 +83,7 @@ public class WaitingListServiceImpl implements WaitingListService {
 
 
             // Récupération du premier à être sur la liste d'attente
-            List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBook(idBook);
             WaitingList waitingList = waitingLists.get(0);
-            // Change les données sur les mail envoyé et date de récupération Max
-            waitingListRepository.updateWaitingListAfterSendMail(waitingList.getId(), date, dateRecoveryLimit);
             // Change les données du premier à être sur la liste d'attente
             waitingListRepository.updateWaitingListAfterSendMail(waitingList.getId(), date, dateRecoveryLimit);
 

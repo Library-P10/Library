@@ -57,19 +57,18 @@ public class WaitingListController {
      * @param waitingListDtos
      */
     @PostMapping(value = "waitingList/changeCustomer")
-    public void changerCustomerInWaitingList(@RequestBody List<WaitingListDto> waitingListDtos,
-                                             HttpServletRequest httpServletRequest) throws Exception{
+    public void changerCustomerInWaitingList(@RequestBody List<WaitingListDto> waitingListDtos){
     // 1 - Supprimer la réservation dont le temps de récupération à changer
     // 2 - Envoyer un mail au second
 
         // Pour chaque liste de réservation
         for (WaitingListDto waitingListDto : waitingListDtos){
 
-            // On envoi un mail au suivant si il existe sinon le livre est disponible
-            waitingListService.sendMailForNextCustomer(waitingListDto.getBook().getId());
-
             //On supprime la réservation de la date dépassée
             waitingListService.deleteWaitingList(waitingListDto.getId());
+
+            // On envoi un mail au suivant si il existe sinon le livre est disponible
+            waitingListService.sendMailForNextCustomer(waitingListDto.getBook().getId());
         }
     }
 
