@@ -195,4 +195,14 @@ public class WaitingListServiceImpl implements WaitingListService {
         return waitingListRepository.getNumberCustomerInWaitingList(idBook);
     }
 
+    /**
+     * Récupération de la liste d'attente de l'utilisateur
+     * @param idCustomer
+     * @return
+     */
+    @Override
+    public List<WaitingListDto> getWaitingListByIdCustomer(final Long idCustomer) {
+        return WaitingListMapper.INSTANCE.map(waitingListRepository.getWaitingListByIdCustomer(idCustomer));
+    }
+
 }

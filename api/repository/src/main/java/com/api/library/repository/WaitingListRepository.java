@@ -52,4 +52,7 @@ public interface WaitingListRepository extends JpaRepository<WaitingList, Long> 
     @Query("SELECT w FROM WaitingList w WHERE (w.customer.id = :idCustomer) AND (w.book.id = :idBook)")
     WaitingList getWaitingListByIdCustomerAndIdBook(@Param("idCustomer") Long idCustomer,
                                                     @Param("idBook") Long idBook);
+
+    @Query("SELECT w FROM WaitingList w WHERE w.customer.id = :idCustomer")
+    List<WaitingList> getWaitingListByIdCustomer(@Param("idCustomer") Long idCustomer);
 }

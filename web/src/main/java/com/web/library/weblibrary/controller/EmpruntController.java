@@ -1,8 +1,10 @@
 package com.web.library.weblibrary.controller;
 
+import com.web.library.weblibrary.beans.Customer;
 import com.web.library.weblibrary.beans.Emprunt;
 import com.web.library.weblibrary.proxies.CopyProxy;
 import com.web.library.weblibrary.proxies.EmpruntProxy;
+import com.web.library.weblibrary.proxies.WaitingListProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,13 @@ import java.util.List;
 public class EmpruntController {
 
     // ----- Injections des dépendances ----- //
+
+    private final WaitingListProxy waitingListProxy;
+
+    @Autowired
+    public EmpruntController(WaitingListProxy waitingListProxy){
+        this.waitingListProxy = waitingListProxy;
+    }
 
     @Autowired
     private EmpruntProxy empruntProxy;
@@ -41,6 +50,8 @@ public class EmpruntController {
 
         List<Emprunt> emprunts = empruntProxy.listEmpruntByCustomer(idSession);
 
+        model.addAttribute("waitingList", waitingListProxy.getWaitingListByCustomer(idSession));
+//        model.addAttribute("dateReturn", );
         model.addAttribute("emprunt", emprunts);
 
         return "emprunts";

@@ -122,4 +122,14 @@ public class WaitingListController {
     public int getNumberCustomerInWaitingList(@PathVariable("idBook") Long idBook){
         return waitingListService.getNumberCustomerInWaitingList(idBook);
     }
+
+    /**
+     * Récupération de la liste d'attente de l'utilisateur
+     * @param idCustomer
+     * @return
+     */
+    @GetMapping(value = "waitingList/customer/{idCustomer}")
+    public List<WaitingListDto> getWaitingListByCustomer(@PathVariable("idCustomer") Long idCustomer){
+        return waitingListService.getWaitingListByIdCustomer(idCustomer);
+    }
 }

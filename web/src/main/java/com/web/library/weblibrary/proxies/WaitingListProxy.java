@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @FeignClient(name = "library", url = "localhost:8181")
 public interface WaitingListProxy {
 
@@ -32,4 +34,12 @@ public interface WaitingListProxy {
      */
     @GetMapping(value = "/waitingList/numberCustomer/{idBook}")
     int getNumberCustomerInWaitingList(@PathVariable("idBook") Long idBook);
+
+    /**
+     * Récupération de la liste d'attente par utilisateur
+     * @param idCustomer
+     * @return
+     */
+    @GetMapping(value = "/waitingList/customer/{idSession}")
+    List<WaitingList> getWaitingListByCustomer(@PathVariable("idSession") Long idCustomer);
 }

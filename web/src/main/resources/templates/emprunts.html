@@ -9,7 +9,7 @@
 <br>
 <!--    On affiche le profil ( paramètre utilisateur, prêt en cours, etc...)-->
 <div class="container">
-
+    <div class="titre">Mes prêts :</div><br>
     <div class="row justify-content-center">
         <table border="1" class="table table-dark">
             <!--        On affiche les prêt en cours-->
@@ -31,6 +31,32 @@
                     <!--                        Prolongation possible si isExtended est false-->
                     <td th:if="${emprunt.extended == false}"><a th:href="@{'/emprunt/extended/'+${emprunt.id}}">Prolonger
                         le prêt</a></td>
+                </tr>
+            </div>
+        </table>
+    </div>
+
+    <div class="titre">Mes réservations :</div><br>
+    <div class="row justify-content-center">
+        <table border="1" class="table table-dark">
+            <!--        On affiche les prêt en cours-->
+            <tr>
+                <th scope="col">Nom du livre</th>
+                <th scope="col">Date de réservation</th>
+                <th scope="col">Date de prochain retour prévue</th>
+                <th scope="col">Position dans la liste d'attente</th>
+            </tr>
+            <div th:each="waitingList : ${waitingList}">
+                <tr>
+                    <!--/*@thymesVar id="book" type="com.web.library.weblibrary.beans.Emprunt"*/-->
+                    <td th:text="${waitingList.book.title}"></td>
+                    <td th:text="${#dates.format(waitingList.dateRequest, 'dd-MM-YYYY')}"></td>
+                    <td th:text="${}"></td>
+                    <td th:text="${}"></td>
+                    <!--                        Annulation possible si dateSendingMail est null-->
+<!--                    <td th:if="${waitingList.dateSendingMail == null}">-->
+<!--                        <a th:href="@{'/waitingList/cancel/'+${waitingList.id}}">Annuler-->
+<!--                        la réservation</a></td>-->
                 </tr>
             </div>
         </table>

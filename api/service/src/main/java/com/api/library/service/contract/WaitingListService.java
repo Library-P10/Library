@@ -79,4 +79,11 @@ public interface WaitingListService {
      * @return
      */
     int getNumberCustomerInWaitingList(Long idBook);
+
+    /**
+     * Récupération de la liste d'attente de l'utilisateur
+     * @param idCustomer
+     * @return
+     */
+    List<WaitingListDto> getWaitingListByIdCustomer(Long idCustomer);
 }
