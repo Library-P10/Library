@@ -97,6 +97,11 @@ h2{
     border-bottom: black 1px dashed;
 }
 
+.redMessage {
+    color: red;
+    font-weight: bold;
+}
+
 .erreur {
     color: red;
 }

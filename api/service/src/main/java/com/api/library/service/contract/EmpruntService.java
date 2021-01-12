@@ -2,6 +2,7 @@ package com.api.library.service.contract;
 
 import com.api.library.dto.EmpruntDto;
 
+import java.util.Date;
 import java.util.List;
 
 public interface EmpruntService {
@@ -25,4 +26,6 @@ public interface EmpruntService {
 
     //Récupère les prêts expirés
     List<EmpruntDto> getEmpruntExpiredLoanDate();
+
+    EmpruntDto getNextReturn(Long idBook);
 }

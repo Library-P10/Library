@@ -112,4 +112,14 @@ public class WaitingListController {
 
         return waitingListService.insertWaitingList(idBook, idCustomer);
     }
+
+    /**
+     * Retourne le nombre de personne dans la liste d'attente
+     * @param idBook
+     * @return
+     */
+    @GetMapping(value = "waitingList/numberCustomer/{idBook}")
+    public int getNumberCustomerInWaitingList(@PathVariable("idBook") Long idBook){
+        return waitingListService.getNumberCustomerInWaitingList(idBook);
+    }
 }

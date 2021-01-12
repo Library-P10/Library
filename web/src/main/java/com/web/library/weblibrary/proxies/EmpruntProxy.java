@@ -5,6 +5,7 @@ import com.web.library.weblibrary.beans.Emprunt;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @FeignClient(name = "library", url = "localhost:8181")
@@ -15,4 +16,7 @@ public interface EmpruntProxy {
 
     @GetMapping(value = "/emprunt/extended/{idEmprunt}")
     void ExtendLoan (@PathVariable("idEmprunt") Long idEmprunt);
+
+    @GetMapping(value = "/emprunt/nextReturn/{idBook}")
+    Emprunt getNextReturn(@PathVariable("idBook") Long idBook);
 }

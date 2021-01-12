@@ -19,6 +19,10 @@ public interface WaitingListRepository extends JpaRepository<WaitingList, Long> 
     @Query("SELECT w FROM WaitingList w WHERE w.book.id = :idBook ORDER BY w.dateRequest asc ")
     List<WaitingList> getWaitingListByIdBookByDateRequest(@Param("idBook") Long idbook);
 
+    // Récupère le nombre de personne dans la liste d'attente
+    @Query("SELECT COUNT (w.customer.id) FROM WaitingList w WHERE w.book.id = :idBook")
+    int getNumberCustomerInWaitingList(@Param("idBook") Long idBook);
+
     // Récupère le nombre d'occurence d'un livre dans la liste d'attente
     @Query("SELECT COUNT (w.book.id) AS numberOfBook FROM WaitingList w WHERE w.book.id = :idBook")
     Integer getNumberBookInWaitingList(@Param("idBook") Long idBook);

@@ -24,18 +24,21 @@ public class BookController {
     private final CategorieProxy categorieProxy;
     private final BookProxy bookProxy;
     private final CustomerProxy customerProxy;
+    private final EmpruntProxy empruntProxy;
 
     @Autowired
     public BookController(WaitingListProxy waitingListProxy,
                           CopyProxy copyProxy,
                           CategorieProxy categorieProxy,
                           BookProxy bookProxy,
-                          CustomerProxy customerProxy){
+                          CustomerProxy customerProxy,
+                          EmpruntProxy empruntProxy){
         this.waitingListProxy = waitingListProxy;
         this.copyProxy = copyProxy;
         this.categorieProxy = categorieProxy;
         this.bookProxy = bookProxy;
         this.customerProxy = customerProxy;
+        this.empruntProxy = empruntProxy;
     }
 
     // ----- ----- //
@@ -105,12 +108,16 @@ public class BookController {
                               Model model,
                               HttpSession httpSession){
 
-        Customer customer = (Customer) httpSession.getAttribute("customer");
+        if(httpSession.getAttribute("customer") !=null){
+            Customer customer = (Customer) httpSession.getAttribute("customer");
+            model.addAttribute("insertAvailable",
+                    waitingListProxy.insertAvailable(idBook, customer.getId()));
+        }
 
+        model.addAttribute("nextReturn", empruntProxy.getNextReturn(idBook));
+        model.addAttribute("numberCustomerWaiting",waitingListProxy.getNumberCustomerInWaitingList(idBook));
         model.addAttribute("book",bookProxy.getBookById(idBook));
         model.addAttribute("copy",copyProxy.getCopyByIdBook(idBook));
-        model.addAttribute("insertAvailable",
-                waitingListProxy.insertAvailable(idBook, customer.getId()));
 
         return "/book";
     }

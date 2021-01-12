@@ -163,4 +163,14 @@ public class EmpruntServiceImpl implements EmpruntService {
     public List<EmpruntDto> getEmpruntExpiredLoanDate() {
         return EmpruntMapper.INSTANCE.map(empruntRepository.getEmpruntExpiredLoanDate());
     }
+
+    /**
+     * Récupère le prochain emprunt à revenir
+     * @param idBook
+     * @return
+     */
+    @Override
+    public EmpruntDto getNextReturn(final Long idBook) {
+        return EmpruntMapper.INSTANCE.empruntToEmpruntDto(empruntRepository.findFirstByCopy_Book_IdOrderByReturnDateAsc(idBook));
+    }
 }

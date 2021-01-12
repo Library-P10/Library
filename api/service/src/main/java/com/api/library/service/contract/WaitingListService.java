@@ -46,10 +46,37 @@ public interface WaitingListService {
      */
     List<WaitingListDto> getWaitingListByDateRecoveryLimitExceeded();
 
+    /**
+     * Ajout possible en liste d'attente ou non
+     * @param numberBookInWaitingList
+     * @param numberOfWaitinListAvailable
+     * @param idBook
+     * @param idCustomer
+     * @return
+     */
     Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable,
                                          Long idBook, Long idCustomer);
 
+    /**
+     * Retourne la liste d'attente selon l'id du book et de l'utilisateur
+     * @param idCustomer
+     * @param idBook
+     * @return
+     */
     WaitingListDto getWaitingListByIdCustomerAndIdBook(Long idCustomer, Long idBook);
 
+    /**
+     * Ajout d'une réservation dans la liste d'attente
+     * @param idBook
+     * @param idCustomer
+     * @return
+     */
     WaitingListDto insertWaitingList(Long idBook, Long idCustomer);
+
+    /**
+     * Récupère le nombre de personne ayant réservée le livre
+     * @param idBook
+     * @return
+     */
+    int getNumberCustomerInWaitingList(Long idBook);
 }

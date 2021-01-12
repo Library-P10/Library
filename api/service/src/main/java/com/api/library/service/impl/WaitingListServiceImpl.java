@@ -144,7 +144,12 @@ public class WaitingListServiceImpl implements WaitingListService {
         EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(
                 empruntRepository.getEmpruntByIdCustomerByIdBook(idCustomer, idBook));
 
-        if ( (waitingListDto !=null) || (empruntDto != null) || (numberOfWaitinListAvailable == numberBookInWaitingList)) {
+        // Récupération du nombre de Copy disponible
+        int numberOfCopyAvailable = copyRepository.getNumberCopyByBookAvailable(idBook);
+
+        if ( (waitingListDto !=null) || (empruntDto != null)
+                || (numberOfWaitinListAvailable == numberBookInWaitingList
+                || (numberOfCopyAvailable > 0))) {
             return false;
         }
         else {
@@ -183,6 +188,11 @@ public class WaitingListServiceImpl implements WaitingListService {
         waitingListRepository.save(WaitingListMapper.INSTANCE.waitingListDtoToWaitingList(waitingListDto));
 
         return waitingListDto;
+    }
+
+    @Override
+    public int getNumberCustomerInWaitingList(final Long idBook) {
+        return waitingListRepository.getNumberCustomerInWaitingList(idBook);
     }
 
 }

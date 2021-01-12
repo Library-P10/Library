@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -116,5 +117,15 @@ public class EmpruntController {
     @GetMapping(value = "empruntDelay")
     public List<EmpruntDto> getEmpruntExpiredLoanDate(){
         return empruntService.getEmpruntExpiredLoanDate();
+    }
+
+    /**
+     * Récupère le prochain emprunt selon la date de retour
+     * @param idBook
+     * @return
+     */
+    @GetMapping(value = "emprunt/nextReturn/{idBook}")
+    public EmpruntDto getNextReturn(@PathVariable("idBook") Long idBook){
+        return empruntService.getNextReturn(idBook);
     }
 }

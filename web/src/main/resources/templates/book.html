@@ -54,13 +54,22 @@
 <!--            Si réservation possible-->
                 <div th:if="${insertAvailable}">
                     <div th:each="book : ${book}">
-                        <div class="nav-item active"><a class="nav-link"
-                                                        th:href="@{'/waitingList/insert/'+${book.id}}">Réserver ce livre</a></div>
+                        <div class="nav-item active">
+                            <a class="nav-link"
+                               th:href="@{'/waitingList/insert/'+${book.id}}">Réserver ce livre</a></div>
                     </div>
                 </div>
 <!--            Si réservation pas possible-->
                 <div th:unless="${insertAvailable}">
-                    <div>Pas de réservation possible</div>
+                    <div><p style="color: red">Pas de réservation possible<br>
+                            Soit vous avez dejà ce livre en emprunt, soit une réservation en attente<br>
+                        ou le nombre de réservation possible est atteint.
+                    </p></div>
+                    <br>
+                    <div>Date de prochain retour :
+                        <span th:text="${#dates.format(nextReturn.getReturnDate(),'dd-MM-yyyy')}"></span></div>
+                    <div>Nombre de personne ayant réservée(s) l'ouvrage :
+                        <span th:text="${numberCustomerWaiting}"></span></div>
                 </div>
             </div>
         </div>
