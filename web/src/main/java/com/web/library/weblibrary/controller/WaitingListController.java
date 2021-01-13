@@ -35,4 +35,14 @@ public class WaitingListController {
 
         return "redirect:/books";
     }
+
+    /**
+     * Supprime la réservation de la liste d'attente
+     * @param idWaitingList
+     */
+    @RequestMapping(value = "/waitingList/delete/{idWaitingList}", method = RequestMethod.GET)
+    public String deleteWaitingList(@PathVariable("idWaitingList") Long idWaitingList){
+        waitingListProxy.deleteWaitingList(idWaitingList);
+        return "redirect:/books";
+    }
 }

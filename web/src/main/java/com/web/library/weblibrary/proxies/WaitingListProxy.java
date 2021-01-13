@@ -42,4 +42,19 @@ public interface WaitingListProxy {
      */
     @GetMapping(value = "/waitingList/customer/{idSession}")
     List<WaitingList> getWaitingListByCustomer(@PathVariable("idSession") Long idCustomer);
+
+    /**
+     * Supprime la réservation de la liste d'attente
+     * @param idWaitingList
+     */
+    @GetMapping(value = "/waitingList/delete/{idWaitingList}")
+    void deleteWaitingList(@PathVariable("idWaitingList") Long idWaitingList);
+
+    /**
+     * Récupère une liste d'attente avec la position de l'utilisateur
+     * @param idCustomer
+     * @return
+     */
+    @GetMapping(value = "/waitingList/getNumberInWaitingList")
+    List<WaitingList> getNumberInWaitingList(@RequestParam(name = "idCustomer") Long idCustomer);
 }

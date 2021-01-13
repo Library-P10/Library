@@ -33,7 +33,7 @@ public class WaitingListController {
      */
     @GetMapping(value = "waitingList/{idBook}")
     public List<WaitingListDto> displayWaitingList(@PathVariable("idBook") Long idBook){
-        return waitingListService.getWaitingListByIdBook(idBook);
+        return waitingListService.getWaitingListByIdBookByDateRequest(idBook);
     }
 
     /**
@@ -131,5 +131,31 @@ public class WaitingListController {
     @GetMapping(value = "waitingList/customer/{idCustomer}")
     public List<WaitingListDto> getWaitingListByCustomer(@PathVariable("idCustomer") Long idCustomer){
         return waitingListService.getWaitingListByIdCustomer(idCustomer);
+    }
+
+    /**
+     * Supprime la réservation de la liste d'attente
+     * @param idWaitingList
+     */
+    @GetMapping(value = "waitingList/delete/{idWaitingList}")
+    public void deleteWaitingList(@PathVariable("idWaitingList") Long idWaitingList){
+        waitingListService.deleteWaitingList(idWaitingList);
+    }
+
+    /**
+     * Récupération d'une liste d'attente avec la position selon l'id du livre
+     * @param idCustomer
+     * @return
+     */
+    @GetMapping(value = "waitingList/getNumberInWaitingList")
+    public List<WaitingListDto> returnWaitingListWithPosition(@RequestParam(name = "idCustomer")Long idCustomer){
+        List<WaitingListDto> waitingListDto = waitingListService.getWaitingListByIdCustomer(idCustomer);
+
+        for (WaitingListDto listDto : waitingListDto
+             ) {
+            waitingListService.getNumberInWaitingList(listDto);
+        }
+
+        return waitingListDto;
     }
 }

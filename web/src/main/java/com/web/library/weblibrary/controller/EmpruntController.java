@@ -51,7 +51,7 @@ public class EmpruntController {
         List<Emprunt> emprunts = empruntProxy.listEmpruntByCustomer(idSession);
 
         model.addAttribute("waitingList", waitingListProxy.getWaitingListByCustomer(idSession));
-//        model.addAttribute("dateReturn", );
+
         model.addAttribute("emprunt", emprunts);
 
         return "emprunts";

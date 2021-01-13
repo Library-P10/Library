@@ -12,7 +12,7 @@ public interface WaitingListService {
      * @param idBook
      * @return
      */
-    List<WaitingListDto> getWaitingListByIdBook(Long idBook);
+    List<WaitingListDto> getWaitingListByIdBookByDateRequest(Long idBook);
 
     /**
      * Récupère le nombre d'occurence d'un libre dans une liste d'attente
@@ -86,4 +86,11 @@ public interface WaitingListService {
      * @return
      */
     List<WaitingListDto> getWaitingListByIdCustomer(Long idCustomer);
+
+    /**
+     * Récupère la position de l'utilisateur selon sa dateRequest
+     * @param waitingListDto
+     * @return
+     */
+    WaitingListDto getNumberInWaitingList(WaitingListDto waitingListDto);
 }

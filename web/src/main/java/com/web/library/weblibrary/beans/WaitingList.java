@@ -9,6 +9,7 @@ public class WaitingList {
     private Date dateSendingMail;
     private Date dateRecoveryLimit;
     private Book book;
+    private int numberInWaitingList;
 
     @Override
     public String toString() {
@@ -18,22 +19,20 @@ public class WaitingList {
                 ", dateSendingMail=" + dateSendingMail +
                 ", dateRecoveryLimit=" + dateRecoveryLimit +
                 ", book=" + book +
+                ", numberInWaitingList=" + numberInWaitingList +
                 '}';
     }
 
     public WaitingList() {
     }
 
-    public WaitingList(final Long id,
-                       final Date dateRequest,
-                       final Date dateSendingMail,
-                       final Date dateRecoveryLimit,
-                       final Book book) {
+    public WaitingList(final Long id, final Date dateRequest, final Date dateSendingMail, final Date dateRecoveryLimit, final Book book, final int numberInWaitingList) {
         this.id = id;
         this.dateRequest = dateRequest;
         this.dateSendingMail = dateSendingMail;
         this.dateRecoveryLimit = dateRecoveryLimit;
         this.book = book;
+        this.numberInWaitingList = numberInWaitingList;
     }
 
     public Long getId() {
@@ -74,5 +73,13 @@ public class WaitingList {
 
     public void setBook(final Book book) {
         this.book = book;
+    }
+
+    public int getNumberInWaitingList() {
+        return numberInWaitingList;
+    }
+
+    public void setNumberInWaitingList(final int numberInWaitingList) {
+        this.numberInWaitingList = numberInWaitingList;
     }
 }

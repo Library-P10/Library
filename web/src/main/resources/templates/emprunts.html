@@ -51,12 +51,12 @@
                     <!--/*@thymesVar id="book" type="com.web.library.weblibrary.beans.Emprunt"*/-->
                     <td th:text="${waitingList.book.title}"></td>
                     <td th:text="${#dates.format(waitingList.dateRequest, 'dd-MM-YYYY')}"></td>
-                    <td th:text="${}"></td>
-                    <td th:text="${}"></td>
-                    <!--                        Annulation possible si dateSendingMail est null-->
-<!--                    <td th:if="${waitingList.dateSendingMail == null}">-->
-<!--                        <a th:href="@{'/waitingList/cancel/'+${waitingList.id}}">Annuler-->
-<!--                        la réservation</a></td>-->
+<!--                    <td th:text="${}"></td>-->
+                    <td th:text="${waitingList.numberInWaitingList}"></td>
+                    <!-- Annulation possible si dateSendingMail est null -->
+                    <td th:if="${waitingList.dateSendingMail == null}">
+                        <a th:href="@{'/waitingList/delete/'+${waitingList.id}}">Annuler
+                        la réservation</a></td>
                 </tr>
             </div>
         </table>

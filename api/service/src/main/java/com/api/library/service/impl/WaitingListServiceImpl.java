@@ -50,7 +50,7 @@ public class WaitingListServiceImpl implements WaitingListService {
     // -----------------------------------------------------  //
 
     @Override
-    public List<WaitingListDto> getWaitingListByIdBook(final Long idBook) {
+    public List<WaitingListDto> getWaitingListByIdBookByDateRequest(final Long idBook) {
         return WaitingListMapper.
                 INSTANCE.map(waitingListRepository.getWaitingListByIdBookByDateRequest(idBook));
     }
@@ -203,6 +203,24 @@ public class WaitingListServiceImpl implements WaitingListService {
     @Override
     public List<WaitingListDto> getWaitingListByIdCustomer(final Long idCustomer) {
         return WaitingListMapper.INSTANCE.map(waitingListRepository.getWaitingListByIdCustomer(idCustomer));
+    }
+
+    /**
+     * Récupère la position de l'utilisateur selon sa dateRequest
+     * @param waitingListDto
+     * @return
+     */
+    @Override
+    public WaitingListDto getNumberInWaitingList(WaitingListDto waitingListDto) {
+
+        int number = waitingListRepository.getNumberInWaitingList(waitingListDto.getBook().getId(),
+                waitingListDto.getDateRequest());
+
+        number = number + 1;
+
+        waitingListDto.setNumberInWaitingList(number);
+
+        return waitingListDto;
     }
 
 }
