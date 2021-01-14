@@ -1,12 +1,15 @@
 package com.api.library.controller;
 
+import com.api.library.dto.EmpruntDto;
 import com.api.library.dto.WaitingListDto;
 import com.api.library.service.contract.CopyService;
+import com.api.library.service.contract.EmpruntService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -16,12 +19,15 @@ public class WaitingListController {
 
     private final WaitingListService waitingListService;
     private final CopyService copyService;
+    private final EmpruntService empruntService;
 
     @Autowired
     public WaitingListController(WaitingListService waitingListService,
-                                 CopyService copyService){
+                                 CopyService copyService,
+                                 EmpruntService empruntService){
         this.waitingListService = waitingListService;
         this.copyService = copyService;
+        this.empruntService = empruntService;
     }
 
     // -----------------------------------------------------  //
@@ -147,13 +153,25 @@ public class WaitingListController {
      * @param idCustomer
      * @return
      */
-    @GetMapping(value = "waitingList/getNumberInWaitingList")
+    @GetMapping(value = "waitingList/getInWaitingList")
     public List<WaitingListDto> returnWaitingListWithPosition(@RequestParam(name = "idCustomer")Long idCustomer){
         List<WaitingListDto> waitingListDto = waitingListService.getWaitingListByIdCustomer(idCustomer);
+        int numberInWaitingList;
+        List<WaitingListDto> newList = null;
 
         for (WaitingListDto listDto : waitingListDto
              ) {
-            waitingListService.getNumberInWaitingList(listDto);
+            numberInWaitingList = waitingListService.getInWaitingList(listDto);
+            EmpruntDto empruntDto = empruntService.getNextReturn(listDto.getBook().getId());
+            Date dateReturn = null;
+
+            if (empruntDto != null){
+                dateReturn = empruntDto.getReturnDate();
+            }
+
+            waitingListService.updateWaintingList
+                    (numberInWaitingList, dateReturn, listDto);
+
         }
 
         return waitingListDto;

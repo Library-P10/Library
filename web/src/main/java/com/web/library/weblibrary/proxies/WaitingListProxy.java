@@ -1,7 +1,6 @@
 package com.web.library.weblibrary.proxies;
 
 import com.web.library.weblibrary.beans.WaitingList;
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +24,7 @@ public interface WaitingListProxy {
      */
     @PostMapping(value = "/waitingList/insert/{idBook}")
     WaitingList insertWaitingList (@RequestParam("idCustomer") Long idCustomer,
-                                   @PathVariable("idBook") Long idBook);
+                                                  @PathVariable("idBook") Long idBook);
 
     /**
      * Retourne le nombre de personne ayant réservée(s) le livre
@@ -51,10 +50,10 @@ public interface WaitingListProxy {
     void deleteWaitingList(@PathVariable("idWaitingList") Long idWaitingList);
 
     /**
-     * Récupère une liste d'attente avec la position de l'utilisateur
+     * Récupère une liste d'attente avec la position de l'utilisateur et la date de retour prochain
      * @param idCustomer
      * @return
      */
-    @GetMapping(value = "/waitingList/getNumberInWaitingList")
+    @GetMapping(value = "/waitingList/getInWaitingList")
     List<WaitingList> getNumberInWaitingList(@RequestParam(name = "idCustomer") Long idCustomer);
 }

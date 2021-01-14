@@ -11,6 +11,7 @@ public class WaitingListDto {
     private CustomerDto customer;
     private BookDto book;
     private int numberInWaitingList;
+    private Date nextReturn;
 
     public Long getId() {
         return id;
@@ -66,5 +67,13 @@ public class WaitingListDto {
 
     public void setNumberInWaitingList(final int numberInWaitingList) {
         this.numberInWaitingList = numberInWaitingList;
+    }
+
+    public Date getNextReturn() {
+        return nextReturn;
+    }
+
+    public void setNextReturn(final Date nextReturn) {
+        this.nextReturn = nextReturn;
     }
 }

@@ -1,8 +1,8 @@
 package com.api.library.service.contract;
 
 import com.api.library.dto.WaitingListDto;
-import com.api.library.model.WaitingList;
 
+import java.util.Date;
 import java.util.List;
 
 public interface WaitingListService {
@@ -92,5 +92,7 @@ public interface WaitingListService {
      * @param waitingListDto
      * @return
      */
-    WaitingListDto getNumberInWaitingList(WaitingListDto waitingListDto);
+    int getInWaitingList(WaitingListDto waitingListDto);
+
+    void updateWaintingList(int numberInWaitingList, Date returnDate, WaitingListDto waitingListDto);
 }

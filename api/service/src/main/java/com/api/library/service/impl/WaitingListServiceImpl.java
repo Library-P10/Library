@@ -6,11 +6,9 @@ import com.api.library.mapper.BookMapper;
 import com.api.library.mapper.CustomerMapper;
 import com.api.library.mapper.EmpruntMapper;
 import com.api.library.mapper.WaitingListMapper;
-import com.api.library.model.Book;
 import com.api.library.model.Copy;
 import com.api.library.model.WaitingList;
 import com.api.library.repository.*;
-import com.api.library.service.contract.BookService;
 import com.api.library.service.contract.MailService;
 import com.api.library.service.contract.WaitingListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,6 +175,18 @@ public class WaitingListServiceImpl implements WaitingListService {
     @Override
     public WaitingListDto insertWaitingList(final Long idBook, final Long idCustomer) {
 
+        int numberOfWaitinListAvailable;
+        int numberBookInWaitingList;
+
+        // Récupération du nombre d'exemplaires de l'ouvrage
+        numberOfWaitinListAvailable = copyRepository.getNumberCopyByBook(idBook);
+        // Récupération du nombre de réservation en attente
+        numberBookInWaitingList = waitingListRepository.getNumberBookInWaitingList(idBook);
+
+        if (insertInWaitingListAvailable(numberBookInWaitingList, numberOfWaitinListAvailable, idBook, idCustomer)){
+            // Exceptions " La réservation n'est pas possible"
+        }
+
         WaitingListDto waitingListDto = new WaitingListDto();
         Date date = new Date();
 
@@ -211,16 +221,21 @@ public class WaitingListServiceImpl implements WaitingListService {
      * @return
      */
     @Override
-    public WaitingListDto getNumberInWaitingList(WaitingListDto waitingListDto) {
+    public int getInWaitingList(WaitingListDto waitingListDto) {
 
         int number = waitingListRepository.getNumberInWaitingList(waitingListDto.getBook().getId(),
                 waitingListDto.getDateRequest());
 
         number = number + 1;
 
-        waitingListDto.setNumberInWaitingList(number);
+        return number;
+    }
 
-        return waitingListDto;
+    @Override
+    public void updateWaintingList(final int numberInWaitingList, final Date returnDate, WaitingListDto waitingListDto) {
+        waitingListDto.setNumberInWaitingList(numberInWaitingList);
+        waitingListDto.setNextReturn(returnDate);
+
     }
 
 }
