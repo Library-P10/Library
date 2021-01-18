@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-28T16:01:14+0100",
+    date = "2021-01-18T10:36:48+0100",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
 )
 public class AuthorMapperImpl implements AuthorMapper {
