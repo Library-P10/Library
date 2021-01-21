@@ -16,7 +16,7 @@
     <artifactId>api-library</artifactId>
     <groupId>com.api.library</groupId>
     <version>2.0.0-SNAPSHOT</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
   </parent>
 
   <properties>

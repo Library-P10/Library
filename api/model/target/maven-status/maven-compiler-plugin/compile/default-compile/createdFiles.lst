@@ -9,7 +9,6 @@ com/api/library/dto/LibraryDto.class
 com/api/library/mapper/CopyMapperImpl.class
 com/api/library/mapper/CategorieMapperImpl.class
 com/api/library/mapper/AuthorMapper.class
-com/api/library/dto/WaitingListByUserDto.class
 com/api/library/model/JwtResponse.class
 com/api/library/mapper/BookMapper.class
 com/api/library/dto/BookDto.class
