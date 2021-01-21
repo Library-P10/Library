@@ -5,8 +5,11 @@ import com.api.library.dto.CustomerDto;
 import com.api.library.dto.EmpruntDto;
 import com.api.library.service.contract.CustomerService;
 import com.api.library.service.contract.EmpruntService;
+import com.api.library.service.exception.EmpruntNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -65,13 +68,16 @@ public class EmpruntController {
 
     /**
      * Prolonge le pret
-     * @param httpSession
      * @param idEmprunt
      */
     @GetMapping(value = "emprunt/extended/{idEmprunt}")
-    public void extendLoan(HttpSession httpSession,
-                    @PathVariable("idEmprunt") Long idEmprunt ){
-        empruntService.extendLoan(idEmprunt);
+    @ResponseStatus(HttpStatus.OK)
+    public void extendLoan(@PathVariable("idEmprunt") Long idEmprunt ){
+        try {
+            empruntService.extendLoan(idEmprunt);
+        } catch (EmpruntNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error Extends Emprunt", e);
+        }
     }
 
     /**

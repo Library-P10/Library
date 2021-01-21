@@ -11,6 +11,7 @@ import com.api.library.repository.CopyRepository;
 import com.api.library.repository.CustomerRepository;
 import com.api.library.repository.EmpruntRepository;
 import com.api.library.service.contract.EmpruntService;
+import com.api.library.service.exception.EmpruntNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +97,10 @@ public class EmpruntServiceImpl implements EmpruntService {
     @Override
     public void extendLoan(final Long idEmprunt) {
         EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(empruntRepository.getEmpruntById(idEmprunt));
+
+        if (empruntDto.getExtended()){
+            throw new EmpruntNotFoundException("Emprunt not found");
+        }
 
         Calendar calendar = Calendar.getInstance();
         Date date = empruntDto.getReturnDate();
