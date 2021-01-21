@@ -9,11 +9,13 @@ import com.api.library.mapper.CopyMapper;
 import com.api.library.mapper.CustomerMapper;
 import com.api.library.mapper.EmpruntMapper;
 import com.api.library.model.Emprunt;
+import com.api.library.model.WaitingList;
 import com.api.library.repository.CopyRepository;
 import com.api.library.repository.CustomerRepository;
 import com.api.library.repository.EmpruntRepository;
 import com.api.library.repository.WaitingListRepository;
 import com.api.library.service.contract.EmpruntService;
+import com.api.library.service.contract.MailService;
 import com.api.library.service.exception.EmpruntNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +31,12 @@ public class EmpruntServiceImpl implements EmpruntService {
     // ----------------- Injections de dépendances ----------------- //
 
     private final WaitingListRepository waitingListRepository;
+    private final MailService mailService;
     @Autowired
-    public EmpruntServiceImpl (WaitingListRepository waitingListRepository){
+    public EmpruntServiceImpl (WaitingListRepository waitingListRepository,
+                               MailService mailService){
         this.waitingListRepository = waitingListRepository;
+        this.mailService = mailService;
     }
 
     @Autowired
@@ -112,11 +117,28 @@ public class EmpruntServiceImpl implements EmpruntService {
         EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(empruntRepository.getEmpruntById(idEmprunt));
         BookDto bookDto = BookMapper.INSTANCE.bookToBookDto(empruntDto.getCopy().getBook());
         Long idBook = bookDto.getId();
+        List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBookByDateRequest(idBook);
 
-        if (waitingListRepository.getWaitingListByIdBook(idBook) == null){
+
+        if (waitingLists == null){
             copyRepository.updateStatusAvailable(empruntDto.getCopy().getId());
         }else {
             copyRepository.updateStatusWaitingList(empruntDto.getCopy().getId());
+
+            Calendar calendar = Calendar.getInstance();
+            Date date = new Date();
+            calendar.setTime(date);
+            calendar.add(Calendar.HOUR, 48);
+            Date dateRecoveryLimit = calendar.getTime();
+
+
+            // Récupération du premier à être sur la liste d'attente
+            WaitingList waitingList = waitingLists.get(0);
+            // Change les données du premier à être sur la liste d'attente
+            waitingListRepository.updateWaitingListAfterSendMail(waitingList.getId(), date, dateRecoveryLimit);
+
+            mailService.sendMessage(waitingList.getCustomer().getEmail(),waitingList.getCustomer().getFirstName(),
+                    waitingList.getCustomer().getLastName(), bookDto.getTitle());
         }
         empruntRepository.delete(EmpruntMapper.INSTANCE.empruntDtoToEmprunt(empruntDto));
     }
