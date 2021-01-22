@@ -97,6 +97,18 @@ h2{
     border-bottom: black 1px dashed;
 }
 
+.redMessage {
+    color: red;
+    font-weight: bold;
+}
+
+#titrePage{
+    text-align: center;
+    border: #1d2124 1px solid;
+    background: #777777;
+    color: black;
+}
+
 .erreur {
     color: red;
 }

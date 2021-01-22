@@ -1,9 +1,8 @@
 package com.web.library.weblibrary.controller;
 
 import com.web.library.weblibrary.beans.Book;
-import com.web.library.weblibrary.proxies.BookProxy;
-import com.web.library.weblibrary.proxies.CategorieProxy;
-import com.web.library.weblibrary.proxies.CopyProxy;
+import com.web.library.weblibrary.beans.Customer;
+import com.web.library.weblibrary.proxies.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,14 +19,27 @@ public class BookController {
 
     // ----- Injections des dépendances ----- //
 
-    @Autowired
-    private BookProxy bookProxy;
+    private final WaitingListProxy waitingListProxy;
+    private final CopyProxy copyProxy;
+    private final CategorieProxy categorieProxy;
+    private final BookProxy bookProxy;
+    private final CustomerProxy customerProxy;
+    private final EmpruntProxy empruntProxy;
 
     @Autowired
-    private CopyProxy copyProxy;
-
-    @Autowired
-    private CategorieProxy categorieProxy;
+    public BookController(WaitingListProxy waitingListProxy,
+                          CopyProxy copyProxy,
+                          CategorieProxy categorieProxy,
+                          BookProxy bookProxy,
+                          CustomerProxy customerProxy,
+                          EmpruntProxy empruntProxy){
+        this.waitingListProxy = waitingListProxy;
+        this.copyProxy = copyProxy;
+        this.categorieProxy = categorieProxy;
+        this.bookProxy = bookProxy;
+        this.customerProxy = customerProxy;
+        this.empruntProxy = empruntProxy;
+    }
 
     // ----- ----- //
 
@@ -84,10 +97,25 @@ public class BookController {
         return "/books";
     }
 
+    /**
+     * Affiche le book
+     * @param idBook
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/book/{idBook}", method = RequestMethod.GET)
     public String getBookById(@PathVariable("idBook") Long idBook,
-                              Model model){
+                              Model model,
+                              HttpSession httpSession){
 
+        if(httpSession.getAttribute("customer") !=null){
+            Customer customer = (Customer) httpSession.getAttribute("customer");
+            model.addAttribute("insertAvailable",
+                    waitingListProxy.insertAvailable(idBook, customer.getId()));
+        }
+
+        model.addAttribute("nextReturn", empruntProxy.getNextReturn(idBook));
+        model.addAttribute("numberCustomerWaiting",waitingListProxy.getNumberCustomerInWaitingList(idBook));
         model.addAttribute("book",bookProxy.getBookById(idBook));
         model.addAttribute("copy",copyProxy.getCopyByIdBook(idBook));
 

@@ -36,6 +36,9 @@ public class Customer implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "customer")
+    private List<WaitingList> waitingLists = new ArrayList<>();
+
     @Override
     public String toString() {
         return "Customer{" +

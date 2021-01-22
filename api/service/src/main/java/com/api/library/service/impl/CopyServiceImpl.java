@@ -52,4 +52,9 @@ public class CopyServiceImpl implements CopyService {
     public CopyDto getCopyById(final Long idCopy) {
         return CopyMapper.INSTANCE.copyToCopyDto(copyRepository.getCopyById(idCopy));
     }
+
+    @Override
+    public int getNumberCopyByIdBook(final Long idBook) {
+        return copyRepository.getNumberCopyByBook(idBook);
+    }
 }

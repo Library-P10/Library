@@ -38,4 +38,24 @@ public interface CopyRepository extends JpaRepository<Copy, Long> {
     @Modifying
     @Query("UPDATE Copy c SET c.status = 'Disponible' WHERE c.id = :idCopy")
     void updateStatusAvailable(@Param("idCopy")Long idCopy);
+
+    // Update status en "En attente de récupération"
+    @Transactional
+    @Modifying
+    @Query("UPDATE Copy c SET c.status = 'Waiting' WHERE c.id = :idCopy")
+    void updateStatusWaitingList(@Param("idCopy")Long idCopy);
+
+    // Récupération du nombre d'occurence de book exsitant dans les librairies
+    @Query("SELECT COUNT(c.book.id) AS numberCopy FROM Copy c WHERE (c.book.id = :idBook)")
+    Integer getNumberCopyByBook(@Param("idBook") Long idBook);
+
+    // Récupère la copy selon son status
+    @Query("SELECT c FROM Copy c WHERE (c.book.id = :idBook) AND (c.status= :status)")
+    Copy getCopyByStatus(@Param("idBook") Long idBook,
+                         @Param("status") String status);
+
+    // Récupération du nombre de copy disponible
+    @Query("SELECT COUNT (c.book.id) AS numberOfCopyAvailbale FROM Copy c WHERE (c.book.id = :idBook)" +
+            "AND (c.status = 'Disponible')")
+    int getNumberCopyByBookAvailable(@Param ("idBook") Long idBook);
 }

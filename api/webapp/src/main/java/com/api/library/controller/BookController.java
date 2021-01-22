@@ -38,11 +38,14 @@ public class BookController {
         return bookService.getBookBySearch(saisie);
     }
 
+    /**
+     * Récupère un book selon son id
+     * @param id
+     * @return
+     */
     @GetMapping(value = "book/{idBook}")
     public BookDto getBookById(@PathVariable("idBook") Long id){
-
-        BookDto bookDto = bookService.getBookById(id);
-
-        return bookDto;
+        return bookService.getBookById(id);
     }
+
 }

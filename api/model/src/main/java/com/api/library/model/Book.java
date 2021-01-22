@@ -46,6 +46,19 @@ public class Book implements Serializable {
 
     }
 
+    public Book(final Long id, final String title, final Date pubDate,
+                final int page, final String synopsis, final String cover,
+                final Categorie categorie, final Author author) {
+        this.id = id;
+        this.title = title;
+        this.pubDate = pubDate;
+        this.page = page;
+        this.synopsis = synopsis;
+        this.cover = cover;
+        this.categorie = categorie;
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -74,16 +87,6 @@ public class Book implements Serializable {
 
     public void setCategorie(final Categorie categorie) {
         this.categorie = categorie;
-    }
-
-    public Book(final Long id, final String title, final Date pubDate, final int page, final String subject, final String synopsis, final String cover)
-    {
-        this.id = id;
-        this.title = title;
-        this.pubDate = pubDate;
-        this.page = page;
-        this.synopsis = synopsis;
-        this.cover = cover;
     }
 
     public Long getId()
