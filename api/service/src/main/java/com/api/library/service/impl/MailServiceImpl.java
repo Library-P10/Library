@@ -36,7 +36,7 @@ public class MailServiceImpl implements MailService {
         writer.setSubject("Livre disponible à la récupération - Bibliothèque d'OC-City");
         writer.setText("Bonjour, %s %s" +
                 "\n\nVous aviez réservé le livre \"%s\" qui a été mis en attente d'un retour." +
-                "\nVous pouvez dès après en venir récupérer le livre qui est réservé pour vous à la suite d'un retour." +
+                "\nVous pouvez dès à présent venir récupérer le livre qui est réservé pour vous à la suite d'un retour." +
                 "\nVous avez 48h pour venir le chercher, passer ce délai, votre réservation est annulée" +
                 "\n\n\nBibliothèque d'OC-City" +
                 "\n\n\n\nCeci est un message automatique, ne pas répondre à ce mail.");
