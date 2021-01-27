@@ -20,7 +20,6 @@ import com.api.library.service.exception.EmpruntNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,21 +31,22 @@ public class EmpruntServiceImpl implements EmpruntService {
 
     private final WaitingListRepository waitingListRepository;
     private final MailService mailService;
+    private final EmpruntRepository empruntRepository;
+    private final CopyRepository copyRepository;
+    private final CustomerRepository customerRepository;
+
     @Autowired
     public EmpruntServiceImpl (WaitingListRepository waitingListRepository,
-                               MailService mailService){
+                               MailService mailService,
+                               EmpruntRepository empruntRepository,
+                               CopyRepository copyRepository,
+                               CustomerRepository customerRepository){
         this.waitingListRepository = waitingListRepository;
         this.mailService = mailService;
+        this.empruntRepository = empruntRepository;
+        this.copyRepository = copyRepository;
+        this.customerRepository = customerRepository;
     }
-
-    @Autowired
-    private EmpruntRepository empruntRepository;
-
-    @Autowired
-    private CopyRepository copyRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
 
     // -----------------------------------------------------  //
 
@@ -159,8 +159,8 @@ public class EmpruntServiceImpl implements EmpruntService {
      */
     @Override
     public void extendLoan(final Long idEmprunt) {
-        EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(empruntRepository.getEmpruntById(idEmprunt));
 
+        EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(empruntRepository.getEmpruntById(idEmprunt));
         if (empruntDto.getExtended()){
             throw new EmpruntNotFoundException("Emprunt not found");
         }
