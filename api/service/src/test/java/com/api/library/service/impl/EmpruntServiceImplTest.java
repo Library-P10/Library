@@ -1,7 +1,8 @@
 package com.api.library.service.impl;
 
 import com.api.library.dto.EmpruntDto;
-import com.api.library.model.Emprunt;
+import com.api.library.model.*;
+import com.api.library.repository.CopyRepository;
 import com.api.library.repository.EmpruntRepository;
 import com.api.library.service.exception.EmpruntNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -25,9 +26,49 @@ import static org.mockito.Mockito.*;
 class EmpruntServiceImplTest {
 
     @Mock EmpruntRepository empruntRepository;
+    @Mock CopyRepository copyRepository;
 
     @InjectMocks
     private EmpruntServiceImpl empruntServiceUnderTest;
+
+    private Book createBook() {
+        Author author = new Author();
+        author.setId(1L);
+        author.setFirstName("FirstName");
+        author.setLastName("LastName");
+
+        Categorie categorie = new Categorie();
+        categorie.setId(2L);
+        categorie.setLabel("Police");
+
+        Book book = new Book();
+        book.setAuthor(author);
+        book.setCategorie(categorie);
+        book.setPage(100);
+        book.setCover(null);
+        book.setPubDate(new Date());
+        book.setTitle("TestTitle");
+        book.setSynopsis("TestSynopsis");
+
+        return book;
+    }
+    private Copy createCopy() {
+        Library library = new Library();
+        library.setCopyList(null);
+        library.setAdress("Test adresse");
+        library.setEmail("test Email");
+        library.setPhoneNum("0000");
+        library.setId(5L);
+
+        Copy copy = new Copy();
+        copy.setBook(createBook());
+        copy.setId(1L);
+        copy.setLibrary(library);
+        copy.setStatus("Disponible");
+        copy.setFormat("Poche");
+
+        return copy;
+    }
     
     @Test
     void getEmpruntByIdCustomer() {
