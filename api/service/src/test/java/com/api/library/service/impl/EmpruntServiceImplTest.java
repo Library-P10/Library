@@ -5,6 +5,8 @@ import com.api.library.model.*;
 import com.api.library.repository.CopyRepository;
 import com.api.library.repository.CustomerRepository;
 import com.api.library.repository.EmpruntRepository;
+import com.api.library.repository.WaitingListRepository;
+import com.api.library.service.contract.MailService;
 import com.api.library.service.exception.EmpruntNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,8 @@ class EmpruntServiceImplTest {
     @Mock EmpruntRepository empruntRepository;
     @Mock CopyRepository copyRepository;
     @Mock CustomerRepository customerRepository;
+    @Mock WaitingListRepository waitingListRepository;
+    @Mock MailService mailService;
 
     @InjectMocks
     private EmpruntServiceImpl empruntServiceUnderTest;
@@ -127,6 +131,7 @@ class EmpruntServiceImplTest {
                 emprunt.getCopy().getLibrary().getNom(),
                 emprunt.getCustomer().getId());
         verify(empruntRepository,times(1)).save(argumentCaptor.capture());
+        assertThat(argumentCaptor.getValue().getCustomer().getId()).isEqualTo(emprunt.getCustomer().getId());
     }
 
     @Test
@@ -151,7 +156,49 @@ class EmpruntServiceImplTest {
     }
 
     @Test
-    void returnEmprunt_whenWaitingListIsNull_shouldChangeStatusAvailable() {
+    void returnEmprunt_shouldSendMessageIsCalled() {
+        Emprunt emprunt = new Emprunt();
+        Copy copy = new Copy();
+        copy = createCopy();
+        emprunt.setId(2L);
+        emprunt.setEmpruntDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(emprunt.getEmpruntDate());
+        calendar.add(Calendar.DATE, 28);
+        emprunt.setReturnDate(calendar.getTime());
+        emprunt.setExtended(false);
+        emprunt.setCopy(copy);
+        emprunt.setCustomer(createCustomer());
+
+        when(empruntRepository.getEmpruntById(emprunt.getId())).thenReturn(emprunt);
+
+        List<WaitingList> waitingLists = new ArrayList<>();
+        Date dateRequest = new Date();
+        WaitingList waitingList = new WaitingList(1L, dateRequest, null,
+                null, emprunt.getCustomer() ,
+                emprunt.getCopy().getBook());
+
+        calendar.setTime(dateRequest);
+        calendar.add(Calendar.DATE, -2);
+
+        WaitingList waitingList1 = new WaitingList(2L, dateRequest, null,
+                null, emprunt.getCustomer() ,
+                emprunt.getCopy().getBook());
+
+        waitingLists.add(waitingList);
+        waitingLists.add(waitingList1);
+
+        when(waitingListRepository.getWaitingListByIdBookByDateRequest(
+                emprunt.getCopy().getBook().getId())).thenReturn(waitingLists);
+
+        empruntServiceUnderTest.returnEmprunt(emprunt.getId());
+        verify(mailService,times(1)).sendMessage(
+                waitingList1.getCustomer().getEmail(),
+                waitingList1.getCustomer().getFirstName(),
+                waitingList1.getCustomer().getLastName(),
+                emprunt.getCopy().getBook().getTitle());
+        assertThat(emprunt.getCopy().getBook().getId()).isEqualTo(3L);
+
 
     }
 
