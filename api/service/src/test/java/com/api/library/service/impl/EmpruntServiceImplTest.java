@@ -3,6 +3,7 @@ package com.api.library.service.impl;
 import com.api.library.dto.EmpruntDto;
 import com.api.library.model.*;
 import com.api.library.repository.CopyRepository;
+import com.api.library.repository.CustomerRepository;
 import com.api.library.repository.EmpruntRepository;
 import com.api.library.service.exception.EmpruntNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +28,7 @@ class EmpruntServiceImplTest {
 
     @Mock EmpruntRepository empruntRepository;
     @Mock CopyRepository copyRepository;
+    @Mock CustomerRepository customerRepository;
 
     @InjectMocks
     private EmpruntServiceImpl empruntServiceUnderTest;
@@ -42,6 +44,7 @@ class EmpruntServiceImplTest {
         categorie.setLabel("Police");
 
         Book book = new Book();
+        book.setId(3L);
         book.setAuthor(author);
         book.setCategorie(categorie);
         book.setPage(100);
@@ -69,6 +72,20 @@ class EmpruntServiceImplTest {
 
         return copy;
     }
+    private Customer createCustomer(){
+        Customer customer = new Customer();
+        customer.setId(2L);
+        customer.setAdress("Adresse de test");
+        customer.setEmail("Email de test");
+        customer.setFirstName("First Name");
+        customer.setLastName("Last Name");
+        customer.setCity("City de test");
+        customer.setPostalCode("00000");
+        customer.setPassword("test");
+
+        return customer;
+    }
+    private ArgumentCaptor<Emprunt> argumentCaptor = ArgumentCaptor.forClass(Emprunt.class);
     
     @Test
     void getEmpruntByIdCustomer() {
@@ -83,7 +100,33 @@ class EmpruntServiceImplTest {
 
     @Test
     void addEmprunt() {
+        Copy copy = new Copy();
+        copy = createCopy();
+        Emprunt emprunt = new Emprunt();
+        emprunt.setId(2L);
+        emprunt.setEmpruntDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(emprunt.getEmpruntDate());
+        calendar.add(Calendar.DATE, 28);
+        emprunt.setReturnDate(calendar.getTime());
+        emprunt.setExtended(false);
+        emprunt.setCopy(copy);
+        emprunt.setCustomer(createCustomer());
 
+        when(copyRepository.findFirstByFormatAndLibrary_Nom(
+                emprunt.getCopy().getFormat(),
+                emprunt.getCopy().getLibrary().getNom(),
+                emprunt.getCopy().getBook().getId())).thenReturn(emprunt.getCopy());
+
+        when(customerRepository.findCustomerById(2L)).thenReturn(emprunt.getCustomer());
+
+        copy.setStatus("Indisponible");
+
+        empruntServiceUnderTest.addEmprunt(emprunt.getCopy().getBook().getId(),
+                emprunt.getCopy().getFormat(),
+                emprunt.getCopy().getLibrary().getNom(),
+                emprunt.getCustomer().getId());
+        verify(empruntRepository,times(1)).save(argumentCaptor.capture());
     }
 
     @Test
@@ -124,7 +167,7 @@ class EmpruntServiceImplTest {
         calendar.add(Calendar.DATE, 28);
         when(empruntRepository.getEmpruntById(1L)).thenReturn(emprunt);
 
-        ArgumentCaptor<Emprunt> argumentCaptor = ArgumentCaptor.forClass(Emprunt.class);
+
         empruntServiceUnderTest.extendLoan(1L);
         verify(empruntRepository,times(1)).save(argumentCaptor.capture());
         assertThat(argumentCaptor.getValue().getReturnDate()).isEqualTo(calendar.getTime());
