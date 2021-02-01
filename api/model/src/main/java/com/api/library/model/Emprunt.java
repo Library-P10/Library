@@ -42,7 +42,19 @@ public class Emprunt implements Serializable {
                 '}';
     }
 
+    public Emprunt(final Long id, final Date empruntDate,
+                   final Date returnDate, final Boolean isExtended,
+                   final Copy copy, final Customer customer) {
+        this.id = id;
+        this.empruntDate = empruntDate;
+        this.returnDate = returnDate;
+        this.isExtended = isExtended;
+        this.copy = copy;
+        this.customer = customer;
+    }
 
+    public Emprunt() {
+    }
 
     public Customer getCustomer() {
         return customer;

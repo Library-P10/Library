@@ -99,7 +99,7 @@ class EmpruntServiceImplTest {
     }
 
     @Test
-    void addEmprunt() {
+    void addEmprunt_shouldCalledAddEmprunt1Times() {
         Copy copy = new Copy();
         copy = createCopy();
         Emprunt emprunt = new Emprunt();
@@ -130,15 +130,68 @@ class EmpruntServiceImplTest {
     }
 
     @Test
-    void deleteEmprunt() {
+    void deleteEmprunt_shouldCalledDelete1Times() {
+        Emprunt emprunt = new Emprunt();
+        Copy copy = new Copy();
+        copy = createCopy();
+        emprunt.setId(2L);
+        emprunt.setEmpruntDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(emprunt.getEmpruntDate());
+        calendar.add(Calendar.DATE, 28);
+        emprunt.setReturnDate(calendar.getTime());
+        emprunt.setExtended(false);
+        emprunt.setCopy(copy);
+        emprunt.setCustomer(createCustomer());
+
+        when(empruntRepository.getEmpruntById(emprunt.getId())).thenReturn(emprunt);
+
+        empruntServiceUnderTest.deleteEmprunt(emprunt.getId());
+        verify(empruntRepository,times(1)).delete(emprunt);
     }
 
     @Test
-    void returnEmprunt() {
+    void returnEmprunt_whenWaitingListIsNull_shouldChangeStatusAvailable() {
+
     }
 
+//    @Test
+//    void getEmpruntById_shouldReturn1Emprunt(){
+//        empruntRepository.getEmpruntById(1L);
+//        verify(empruntRepository,times(1)).getEmpruntById(1L);
+//    }
+//
+//    @Test
+//    void getEmpruntByIdCopy_shouldReturn1Emprunt(){
+//        empruntRepository.getEmpruntByIdCopy(1L);
+//        verify(empruntRepository,times(1)).getEmpruntByIdCopy(1L);
+//    }
+//
+//    @Test
+//    void getEmpruntByIdCustomer_shouldReturn1Emprunt(){
+//        empruntRepository.getEmpruntByIdCustomer(1L);
+//        verify(empruntRepository,times(1)).getEmpruntByIdCustomer(1L);
+//    }
+
     @Test
-    void deleteEmpruntByIdCopy() {
+    void deleteEmpruntByIdCopy_shouldcalled1Times() {
+        Emprunt emprunt = new Emprunt();
+        Copy copy = new Copy();
+        copy = createCopy();
+        emprunt.setId(2L);
+        emprunt.setEmpruntDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(emprunt.getEmpruntDate());
+        calendar.add(Calendar.DATE, 28);
+        emprunt.setReturnDate(calendar.getTime());
+        emprunt.setExtended(false);
+        emprunt.setCopy(copy);
+        emprunt.setCustomer(createCustomer());
+
+        when(empruntRepository.getEmpruntByIdCopy(1L)).thenReturn(emprunt);
+
+        empruntServiceUnderTest.deleteEmpruntByIdCopy(emprunt.getCopy().getId());
+        verify(empruntRepository,times(1)).delete(emprunt);
     }
 
     @DisplayName("ExtendLoan")
@@ -175,9 +228,16 @@ class EmpruntServiceImplTest {
 
     @Test
     void getEmpruntExpiredLoanDate() {
+        empruntServiceUnderTest.getEmpruntExpiredLoanDate();
+        verify(empruntRepository,times(1)).getEmpruntExpiredLoanDate();
+
     }
 
     @Test
     void getNextReturn() {
+        Long idBook = 2L;
+        empruntServiceUnderTest.getNextReturn(idBook);
+        verify(empruntRepository,times(1)).findFirstByCopy_Book_IdOrderByReturnDateAsc(idBook);
     }
+
 }
