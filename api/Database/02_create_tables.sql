@@ -57,10 +57,10 @@ create table copy
 (
     id         int auto_increment
         primary key,
-    format     varchar(20) not null,
+    format     varchar(40) not null,
     book_id    int         not null,
     library_id int         not null,
-    status     varchar(20) not null,
+    status     varchar(40) not null,
     constraint book_copy_fk
         foreign key (book_id) references book (id),
     constraint library_copy_fk
@@ -79,6 +79,21 @@ create table emprunt
     constraint copy_emprunt_fk
         foreign key (copy_id) references copy (id),
     constraint customer_emprunt_fk
+        foreign key (customer_id) references customer (id)
+);
+
+create table waiting_list
+(
+    id                  int auto_increment
+        primary key,
+    customer_id         int         not null,
+    date_request        datetime(6) null,
+    date_sending_mail   datetime    null,
+    book_id             int         not null,
+    date_recovery_limit datetime    null,
+    constraint book_waiting_list_fk
+        foreign key (book_id) references book (id),
+    constraint customer_waitingList_fk
         foreign key (customer_id) references customer (id)
 );
 
