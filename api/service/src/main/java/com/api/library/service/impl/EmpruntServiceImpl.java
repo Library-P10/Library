@@ -161,7 +161,8 @@ public class EmpruntServiceImpl implements EmpruntService {
     public void extendLoan(final Long idEmprunt) {
 
         EmpruntDto empruntDto = EmpruntMapper.INSTANCE.empruntToEmpruntDto(empruntRepository.getEmpruntById(idEmprunt));
-        if (empruntDto.getExtended()){
+        Date dateCurrent = new Date();
+        if (empruntDto.getReturnDate().before(dateCurrent)){
             throw new EmpruntNotFoundException("Emprunt not found");
         }
 
