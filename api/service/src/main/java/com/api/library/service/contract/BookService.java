@@ -22,13 +22,6 @@ public interface BookService {
 
     /**
      *
-     * @param book
-     * @return  Ajoute un livre en base
-     */
-    Book addBook(Book book);
-
-    /**
-     *
      * @return  les livres selon la catégorie
      */
     List<BookDto> getBookByCategorie(String categorie);

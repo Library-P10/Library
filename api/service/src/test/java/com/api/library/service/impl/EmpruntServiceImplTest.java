@@ -202,24 +202,6 @@ class EmpruntServiceImplTest {
 
     }
 
-//    @Test
-//    void getEmpruntById_shouldReturn1Emprunt(){
-//        empruntRepository.getEmpruntById(1L);
-//        verify(empruntRepository,times(1)).getEmpruntById(1L);
-//    }
-//
-//    @Test
-//    void getEmpruntByIdCopy_shouldReturn1Emprunt(){
-//        empruntRepository.getEmpruntByIdCopy(1L);
-//        verify(empruntRepository,times(1)).getEmpruntByIdCopy(1L);
-//    }
-//
-//    @Test
-//    void getEmpruntByIdCustomer_shouldReturn1Emprunt(){
-//        empruntRepository.getEmpruntByIdCustomer(1L);
-//        verify(empruntRepository,times(1)).getEmpruntByIdCustomer(1L);
-//    }
-
     @Test
     void deleteEmpruntByIdCopy_shouldcalled1Times() {
         Emprunt emprunt = new Emprunt();
