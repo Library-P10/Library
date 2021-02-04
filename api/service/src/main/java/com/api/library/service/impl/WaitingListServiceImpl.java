@@ -147,7 +147,7 @@ public class WaitingListServiceImpl implements WaitingListService {
 
         if ( (waitingListDto !=null) || (empruntDto != null)
                 || (numberOfWaitinListAvailable == numberBookInWaitingList
-                || (numberOfCopyAvailable > 0))) {
+                || (numberOfCopyAvailable != 0))) {
             return false;
         }
         else {
