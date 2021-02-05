@@ -199,7 +199,6 @@ class EmpruntServiceImplTest {
                 emprunt.getCopy().getBook().getTitle());
         assertThat(emprunt.getCopy().getBook().getId()).isEqualTo(3L);
 
-
     }
 
     @Test
@@ -229,6 +228,11 @@ class EmpruntServiceImplTest {
         Emprunt emprunt = new Emprunt();
         emprunt.setId(1L);
         emprunt.setExtended(true);
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, -2);
+        emprunt.setReturnDate(calendar.getTime());
         when(empruntRepository.getEmpruntById(1L)).thenReturn(emprunt);
 
         assertThatThrownBy(()-> empruntServiceUnderTest.extendLoan(1L))
@@ -243,14 +247,15 @@ class EmpruntServiceImplTest {
         emprunt.setId(1L);
         emprunt.setExtended(false);
         emprunt.setEmpruntDate(new Date());
-        emprunt.setReturnDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(emprunt.getEmpruntDate());
         calendar.add(Calendar.DATE, 28);
+        emprunt.setReturnDate(calendar.getTime());
         when(empruntRepository.getEmpruntById(1L)).thenReturn(emprunt);
 
 
         empruntServiceUnderTest.extendLoan(1L);
+        calendar.add(Calendar.DATE,28);
         verify(empruntRepository,times(1)).save(argumentCaptor.capture());
         assertThat(argumentCaptor.getValue().getReturnDate()).isEqualTo(calendar.getTime());
     }

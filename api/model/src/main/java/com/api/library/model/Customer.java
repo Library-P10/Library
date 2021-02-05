@@ -53,6 +53,23 @@ public class Customer implements Serializable {
                 '}';
     }
 
+    public Customer() {
+    }
+
+    public Customer(final Long id, final String firstName, final String lastName,
+                    final String adress, final String postalCode, final String city,
+                    final String email, final String password, final List<WaitingList> waitingLists) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.adress = adress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.email = email;
+        this.password = password;
+        this.waitingLists = waitingLists;
+    }
+
     public Long getId() {
         return id;
     }
