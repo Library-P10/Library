@@ -120,7 +120,7 @@ public class EmpruntServiceImpl implements EmpruntService {
         List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBookByDateRequest(idBook);
 
 
-        if (waitingLists == null){
+        if (waitingLists.size() == 0){
             copyRepository.updateStatusAvailable(empruntDto.getCopy().getId());
         }else {
             copyRepository.updateStatusWaitingList(empruntDto.getCopy().getId());
