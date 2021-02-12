@@ -81,7 +81,7 @@ public class WaitingListServiceImpl implements WaitingListService {
         Copy copy =copyRepository.getCopyByStatus(idBook, status);
         List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBookByDateRequest(idBook);
 
-        if (waitingLists.size() == 0){
+        if (waitingLists.isEmpty()){
             copyRepository.updateStatusAvailable(copy.getId());
         }else {
             copyRepository.updateStatusWaitingList(copy.getId());

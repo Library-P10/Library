@@ -10,12 +10,12 @@
     </parent>
     <groupId>com.web.library</groupId>
     <artifactId>web-library</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.1-SNAPSHOT</version>
     <name>web-library</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>15</java.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
     </properties>
 

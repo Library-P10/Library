@@ -62,7 +62,8 @@ class WaitingListServiceImplTest {
         Copy copy = new Copy();
         copy.setId(1L);
         copy.setStatus(status);
-        when(waitingListRepository.getWaitingListByIdBookByDateRequest(2L)).thenReturn(null);
+        List<WaitingList> waitingList = new ArrayList<>();
+        when(waitingListRepository.getWaitingListByIdBookByDateRequest(2L)).thenReturn(waitingList);
         when(copyRepository.getCopyByStatus(2L,status)).thenReturn(copy);
         waitingListServiceUnderTest.sendMailForNextCustomer(2L);
         verify(mailService,times(0)).sendMessage(

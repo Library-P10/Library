@@ -29,7 +29,7 @@
       <module name="model" target="1.8" />
       <module name="repository" target="15" />
       <module name="service" target="15" />
-      <module name="web-library" target="11" />
+      <module name="web-library" target="15" />
       <module name="webapp" target="15" />
     </bytecodeTargetLevel>
   </component>
