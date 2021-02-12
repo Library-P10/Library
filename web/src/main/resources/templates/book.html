@@ -57,6 +57,10 @@
                         <div class="nav-item active">
                             <a class="nav-link"
                                th:href="@{'/waitingList/insert/'+${book.id}}">Réserver ce livre</a></div>
+                        <div th:if="${nextReturn != null}">Date de prochain retour :
+                            <span th:text="${#dates.format(nextReturn.getReturnDate(),'dd-MM-yyyy')}"></span></div>
+                        <div th:if="${numberCustomerWaiting != null}">Nombre de personne ayant réservée(s) l'ouvrage :
+                            <span th:text="${numberCustomerWaiting}"></span></div>
                     </div>
                 </div>
 <!--            Si réservation pas possible-->

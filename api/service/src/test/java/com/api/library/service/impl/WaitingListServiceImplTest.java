@@ -1,24 +1,21 @@
 package com.api.library.service.impl;
 
 import com.api.library.dto.BookDto;
-import com.api.library.dto.EmpruntDto;
 import com.api.library.dto.WaitingListDto;
-import com.api.library.mapper.EmpruntMapper;
-import com.api.library.mapper.WaitingListMapper;
-import com.api.library.model.*;
+import com.api.library.model.Book;
+import com.api.library.model.Copy;
+import com.api.library.model.Customer;
+import com.api.library.model.WaitingList;
 import com.api.library.repository.*;
 import com.api.library.service.contract.MailService;
 import com.api.library.service.exception.WaitingListException;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -30,8 +27,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,6 +39,7 @@ class WaitingListServiceImplTest {
     @Mock MailService mailService;
     @Mock BookRepository bookRepository;
     @Mock CustomerRepository customerRepository;
+    @Mock WaitingListServiceImpl waitingListService;
 
     private ArgumentCaptor<WaitingList> argumentCaptor = ArgumentCaptor.forClass(WaitingList.class);
     private WaitingListServiceImpl waitingListServiceUnderTest;
@@ -56,18 +52,6 @@ class WaitingListServiceImplTest {
                 mailService,
                 bookRepository,
                 customerRepository);
-    }
-
-    @Test
-    void getWaitingListByIdBookByDateRequest() {
-    }
-
-    @Test
-    void getNumberBookInWaitingList() {
-    }
-
-    @Test
-    void deleteWaitingList() {
     }
 
     @Test
@@ -85,6 +69,7 @@ class WaitingListServiceImplTest {
                 "argTo","argFirst", "argLast", "argTitle");
     }
 
+
     @Test
     void whenWaitingList_shouldSendMail() {
         String status ="Waiting";
@@ -97,9 +82,7 @@ class WaitingListServiceImplTest {
         copy.setStatus(status);
         copy.setBook(book);
 
-        Customer customer =new Customer(5L, "firstName", "lastName",
-                "adress","code postal","city",
-                "email", "test", null);
+        Customer customer =new Customer();
 
         List<WaitingList> waitingLists = new ArrayList();
         WaitingList waitingList = new WaitingList(
@@ -126,19 +109,6 @@ class WaitingListServiceImplTest {
                 waitingList.getCustomer().getLastName(), copy.getBook().getTitle());
     }
 
-    @Test
-    void getWaitingListById() {
-    }
-
-    @Test
-    void getWaitingListByDateRecoveryLimitExceeded() {
-    }
-
-    @DisplayName("Insert in WaitingList is Available")
-    @Test
-    void whenNumberInWaitingListIsMax_shouldFalse() {
-    }
-
     @DisplayName("Insert in WaitingList is Available")
     @Test
     void whenCopyIsAvailable_shouldFalse() {
@@ -149,7 +119,6 @@ class WaitingListServiceImplTest {
 
         when(waitingListRepository.getWaitingListByIdCustomerAndIdBook(idCustomer, idBook)).thenReturn(null);
         when(copyRepository.getNumberCopyByBookAvailable(idBook)).thenReturn(2);
-
         when(empruntRepository.getEmpruntByIdCustomerByIdBook(idCustomer, idBook)).thenReturn(null);
 
         waitingListServiceUnderTest.insertInWaitingListAvailable(numberBookInWaitingList, numberOfWaitingListAvailable,
@@ -180,18 +149,12 @@ class WaitingListServiceImplTest {
                 idBook, idCustomer).booleanValue()).isTrue();
     }
 
-    @Test
-    void getWaitingListByIdCustomerAndIdBook() {
-    }
-
-    @Disabled
     @DisplayName("when insert a new waitinglist")
+    @Disabled
     @Test
     void whenInsertIsNotAvailable_shouldThrowWaitingListException() {
         int numberOfWaitinListAvailable=4;
         int numberBookInWaitingList=4;
-
-        WaitingListServiceImpl waitingListService = mock(WaitingListServiceImpl.class);
 
         when(copyRepository.getNumberCopyByBook(2L)).thenReturn(numberOfWaitinListAvailable);
         when(waitingListRepository.getNumberBookInWaitingList(2L)).thenReturn(numberBookInWaitingList);
@@ -202,6 +165,7 @@ class WaitingListServiceImplTest {
                 .isInstanceOf(WaitingListException.class)
                 .hasMessage("WaitingList not available");
     }
+
 
     @DisplayName("when insert a new waitinglist")
     @Test
@@ -217,14 +181,6 @@ class WaitingListServiceImplTest {
 
         waitingListServiceUnderTest.insertWaitingList(2L,4L);
         verify(waitingListRepository,times(1)).save(argumentCaptor.capture());
-    }
-
-    @Test
-    void getNumberCustomerInWaitingList() {
-    }
-
-    @Test
-    void getWaitingListByIdCustomer() {
     }
 
     @Test

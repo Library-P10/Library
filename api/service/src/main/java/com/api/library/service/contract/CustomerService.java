@@ -9,10 +9,6 @@ public interface CustomerService {
     CustomerDto saveCustomer(CustomerDto customerDto);
     // Retourne l'utilisateur
     CustomerDto findCustomerByEmail(String email);
-    // Ajouter un utilisateur
-    CustomerDto createUser(CustomerDto customerDto);
-    // Validation d'authentification
-    CustomerDto validationAuthentication(AuthenticationDto authenticationDto);
     // Récupère l'utilisateur par son id
     CustomerDto findCustomerById(Long idCustomer);
     // Update le profil de l'utilisateur

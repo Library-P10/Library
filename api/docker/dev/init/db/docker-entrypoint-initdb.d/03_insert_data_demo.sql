@@ -13,6 +13,7 @@ INSERT INTO library.categorie (id, label) VALUES (4, 'Fantastique');
 INSERT INTO library.customer (id, first_name, last_name, adress, postal_code, city, email, password) VALUES (3, 'toto', 'test', '3 rue de ici', '56500', 'totoland', 'test@test.fr', '$2a$10$AoKHZdtNnmqcb9B0J588m.WXJGUql3J38KYVYSdJ/VbxnRWWiIy2.');
 INSERT INTO library.customer (id, first_name, last_name, adress, postal_code, city, email, password) VALUES (8, 'Bruno', 'Brichet', '3 rue de labas', '75200', 'Devland', 'benoit@test.fr', '$2a$10$4bEdMuYgdQEKBJdK2mUMOuw9QC4UVPh9uKr6rtGKQf3.NKHsHmdPS');
 INSERT INTO library.customer (id, first_name, last_name, adress, postal_code, city, email, password) VALUES (9, 'admin', 'admin', 'admin', 'admin', 'admin', 'admin@admin.fr', '$2a$10$a32qexgK4tce33bNBmOSdeu88Q8BNRRwQCGfx0gjSm.ZQ.6LWgI0u');
+INSERT INTO library.customer (id, first_name, last_name, adress, postal_code, city, email, password) VALUES (10, 'Benoit', 'Test', '4 Rue de Troyes', '45000', 'TestLand', 'Benoit@test.fr', '$2a$10$a32qexgK4tce33bNBmOSdeu88Q8BNRRwQCGfx0gjSm.ZQ.6LWgI0u');
 
 INSERT INTO library.library (id, nom, adress, phone_num, email) VALUES (1, 'Bibliotheque Sud', '3 Rue de la resistance ', '0924651820', 'bibliothèqueSud@hotmail.fr');
 INSERT INTO library.library (id, nom, adress, phone_num, email) VALUES (2, 'Bibliotheque Nord', '10 rue de la liberté', '0945185481', 'bibliothèqueNord@hotmail.fr');
@@ -59,8 +60,7 @@ INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (7, 'P
 INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (8, 'Poche', 2, 2, 'Disponible');
 INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (9, 'Roman', 2, 1, 'Disponible');
 INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (10, 'Roman', 2, 2, 'Disponible');
-INSERT INTO library.copy (id, format,berCustomerInWaitingList(idBook);
-    } book_id, library_id, status) VALUES (11, 'Broche', 3, 1, 'Disponible');
+INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (11, 'Broche', 3, 1, 'Disponible');
 INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (12, 'Broche', 3, 2, 'Disponible');
 INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (13, 'Roman', 3, 2, 'Disponible');
 INSERT INTO library.copy (id, format, book_id, library_id, status) VALUES (14, 'Roman', 3, 2, 'Disponible');

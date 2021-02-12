@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.http.HttpRequest;
+
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
@@ -49,37 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto findCustomerByEmail(final String email) {
         Customer customer = customerRepository.findByEmail(email);
-
         return CustomerMapper.INSTANCE.customerToCustomerDto(customer);
-    }
-
-    @Override
-    public CustomerDto createUser(final CustomerDto customerDto) {
-
-        Customer customer = CustomerMapper.INSTANCE.customerDtoToCustomer(customerDto);
-        customer = customerRepository.save(customer);
-
-        return CustomerMapper.INSTANCE.customerToCustomerDto(customer);
-    }
-
-    /**
-     *
-     * @param authenticationDto
-     * @return authentification si validation ok
-     */
-    @Override
-    public CustomerDto validationAuthentication(final AuthenticationDto authenticationDto) {
-
-        CustomerDto customerDto = CustomerMapper.INSTANCE.customerToCustomerDto(customerRepository.findByEmail(authenticationDto.getEmail()));
-        String loginPassword = authenticationDto.getPassword();
-        String password = customerDto.getPassword();
-
-        if (customerDto == null || !BCrypt.checkpw(loginPassword,password)){
-
-            return null;
-        }
-
-        return customerDto;
     }
 
     /**
