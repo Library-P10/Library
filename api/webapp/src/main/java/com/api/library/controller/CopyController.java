@@ -44,7 +44,7 @@ public class CopyController {
         return copyService.getCopyById(id);
     }
 
-    //TODO A vérifier
+
     /**
      * Retour d'un exemplaire
      * @param idCopy

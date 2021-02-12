@@ -43,6 +43,8 @@ public class WaitingList implements Serializable {
         this.book = book;
     }
 
+
+
     @Override
     public String toString() {
         return "WaitingList{" +

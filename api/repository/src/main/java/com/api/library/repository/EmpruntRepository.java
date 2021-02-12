@@ -32,6 +32,6 @@ public interface EmpruntRepository extends JpaRepository<Emprunt,Long> {
     Emprunt getEmpruntByIdCustomerByIdBook(@Param("idCustomer") Long idCustomer,
                                               @Param("idBook") Long idBook);
 
-    // Récupère la date de prochain retour d'un livre
+    // Récupère l'emprunt du prochain retour d'un livre
     Emprunt findFirstByCopy_Book_IdOrderByReturnDateAsc(@Param("idBook") Long idBook);
 }
