@@ -12,7 +12,7 @@ Projet 10 - Améliorez le système d’information de la bibliothèque
 
 Les outils pour le développement sont :
 - IDE : IntelliJ IDEA 
-- Java 11
+- Java 15
 - Tomcat 9
 - Spring Boot version t2.3.3
 - Thymeleaf 
@@ -29,16 +29,6 @@ Les outils pour le développement sont :
 	- Utiliser les scripts SQL dans MySQLWorkbench dans l'ordre ( create_database.sql , create.sql , library_insert_01.sql , library_insert_02.sql , library_insert_03.sql ) pour pouvoir utiliser les données. (Scripts télécharger via le github )
 
 ##### Déploiement Application
-
-Les différents composants sont disponibles aux liens suivants : 
-
-	- API : https://github.com/Benoitdu53/api-library
-	
-	- client web : https://github.com/Benoitdu53/web-library
-	
-	- Batch : https://github.com/Benoitdu53/batch-library
-	
-	- Liens principal : https://github.com/Benoitdu53/Library ( Contient les scripts)
 	
 Pour le déploiement de l'application chaque composant à un ReadMe à suivre.Il est important de d'abord lancé l'api et après soit le client web ou le batch.
 Si problème, fermé vos terminal et relancer en suivant l'ordre API, client web et batch.
