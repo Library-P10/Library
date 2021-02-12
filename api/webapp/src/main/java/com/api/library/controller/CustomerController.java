@@ -1,8 +1,6 @@
 package com.api.library.controller;
 
-import com.api.library.dto.AuthenticationDto;
 import com.api.library.dto.CustomerDto;
-import com.api.library.mapper.CustomerMapper;
 import com.api.library.service.contract.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
