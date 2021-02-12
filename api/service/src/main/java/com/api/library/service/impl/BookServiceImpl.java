@@ -40,24 +40,11 @@ public class BookServiceImpl implements BookService {
 
     /**
      *
-     * @param book
-     * @return Ajoute un book
-     */
-    @Override
-    public Book addBook(final Book book) {
-        return null;
-    }
-
-    /**
-     *
      * @param categorie
      * @return la liste des books selon la catégorie
      */
     @Override
     public List<BookDto> getBookByCategorie(String categorie) {
-
-
-
         return BookMapper.INSTANCE.map(bookRepository.getBookByCategorie(categorie));
     }
 

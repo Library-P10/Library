@@ -52,23 +52,28 @@
         <div class="col-6">
             <div th:if="${!session.isEmpty()}">
 <!--            Si réservation possible-->
-                <div th:if="${insertAvailable}">
+                <div th:if="${insertAvailable} == true">
                     <div th:each="book : ${book}">
                         <div class="nav-item active">
                             <a class="nav-link"
                                th:href="@{'/waitingList/insert/'+${book.id}}">Réserver ce livre</a></div>
+                        <div th:if="${nextReturn != null}">Date de prochain retour :
+                            <span th:text="${#dates.format(nextReturn.getReturnDate(),'dd-MM-yyyy')}"></span></div>
+                        <div th:if="${numberCustomerWaiting != null}">Nombre de personne ayant réservée(s) l'ouvrage :
+                            <span th:text="${numberCustomerWaiting}"></span></div>
                     </div>
                 </div>
 <!--            Si réservation pas possible-->
-                <div th:unless="${insertAvailable}">
-                    <div><p style="color: red">Pas de réservation possible<br>
-                            Soit vous avez dejà ce livre en emprunt, soit une réservation en attente<br>
-                        ou le nombre de réservation possible est atteint.
+                <div th:if="${insertAvailable} == false">
+                    <div><p style="color: red">Pas de réservation possible car soit :<br>
+                        - Vous avez déjà ce livre en prêt<br>
+                        - Vous avez déjà une réservation en attente<br>
+                        - Des exemplaires sont disponibles en bibliothèque<br>
                     </p></div>
                     <br>
-                    <div>Date de prochain retour :
+                    <div th:if="${nextReturn != null}">Date de prochain retour :
                         <span th:text="${#dates.format(nextReturn.getReturnDate(),'dd-MM-yyyy')}"></span></div>
-                    <div>Nombre de personne ayant réservée(s) l'ouvrage :
+                    <div th:if="${numberCustomerWaiting != null}">Nombre de personne ayant réservée(s) l'ouvrage :
                         <span th:text="${numberCustomerWaiting}"></span></div>
                 </div>
             </div>

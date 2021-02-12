@@ -27,5 +27,6 @@ public interface EmpruntService {
     //Récupère les prêts expirés
     List<EmpruntDto> getEmpruntExpiredLoanDate();
 
+    // Récupère le prochain à revenir pour le livre
     EmpruntDto getNextReturn(Long idBook);
 }

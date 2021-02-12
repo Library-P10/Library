@@ -57,4 +57,15 @@ public class CopyServiceImpl implements CopyService {
     public int getNumberCopyByIdBook(final Long idBook) {
         return copyRepository.getNumberCopyByBook(idBook);
     }
+
+    /**
+     * Récupère la copy qui est en attente de récupération
+     * @param idBook
+     * @param status
+     * @return
+     */
+    @Override
+    public CopyDto getCopyByIdBookAndStatus(final Long idBook, final String status) {
+        return CopyMapper.INSTANCE.copyToCopyDto(copyRepository.getCopyByStatus(idBook, status));
+    }
 }

@@ -5,8 +5,11 @@ import com.api.library.dto.WaitingListDto;
 import com.api.library.service.contract.CopyService;
 import com.api.library.service.contract.EmpruntService;
 import com.api.library.service.contract.WaitingListService;
+import com.api.library.service.exception.WaitingListException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -113,10 +116,14 @@ public class WaitingListController {
      * @return
      */
     @PostMapping(value = "waitingList/insert/{idBook}")
+    @ResponseStatus(HttpStatus.OK)
     public WaitingListDto insertNewWaitingList (@PathVariable("idBook") Long idBook,
                                                 @RequestParam(name = "idCustomer") Long idCustomer){
-
-        return waitingListService.insertWaitingList(idBook, idCustomer);
+        try {
+            return waitingListService.insertWaitingList(idBook, idCustomer);
+        } catch (WaitingListException w){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Error insert in WaitlingList", w);
+        }
     }
 
     /**

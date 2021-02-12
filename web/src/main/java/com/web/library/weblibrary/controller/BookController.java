@@ -60,7 +60,7 @@ public class BookController {
     }
 
     /**
-     * Affie les livres par catégorie
+     * Affichee les livres par catégorie
      * @param model
      * @param categorie
      * @return
@@ -82,7 +82,7 @@ public class BookController {
     }
 
     /**
-     * Affice les livres selon la saisie de l'utilisateur dans la barre de recherche
+     * Affiche les livres selon la saisie de l'utilisateur dans la barre de recherche
      * @param saisie
      * @param model
      * @return
@@ -112,10 +112,10 @@ public class BookController {
             Customer customer = (Customer) httpSession.getAttribute("customer");
             model.addAttribute("insertAvailable",
                     waitingListProxy.insertAvailable(idBook, customer.getId()));
+            model.addAttribute("nextReturn", empruntProxy.getNextReturn(idBook));
+            model.addAttribute("numberCustomerWaiting",waitingListProxy.getNumberCustomerInWaitingList(idBook));
         }
 
-        model.addAttribute("nextReturn", empruntProxy.getNextReturn(idBook));
-        model.addAttribute("numberCustomerWaiting",waitingListProxy.getNumberCustomerInWaitingList(idBook));
         model.addAttribute("book",bookProxy.getBookById(idBook));
         model.addAttribute("copy",copyProxy.getCopyByIdBook(idBook));
 

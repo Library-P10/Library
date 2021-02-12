@@ -11,6 +11,8 @@ import com.api.library.model.WaitingList;
 import com.api.library.repository.*;
 import com.api.library.service.contract.MailService;
 import com.api.library.service.contract.WaitingListService;
+import com.api.library.service.exception.EmpruntNotFoundException;
+import com.api.library.service.exception.WaitingListException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +81,7 @@ public class WaitingListServiceImpl implements WaitingListService {
         Copy copy =copyRepository.getCopyByStatus(idBook, status);
         List<WaitingList> waitingLists = waitingListRepository.getWaitingListByIdBookByDateRequest(idBook);
 
-        if (waitingLists == null){
+        if (waitingLists.size() == 0){
             copyRepository.updateStatusAvailable(copy.getId());
         }else {
             copyRepository.updateStatusWaitingList(copy.getId());
@@ -122,7 +124,8 @@ public class WaitingListServiceImpl implements WaitingListService {
     }
 
     @Override
-    public Boolean insertInWaitingListAvailable(int numberBookInWaitingList, int numberOfWaitinListAvailable,
+    public Boolean insertInWaitingListAvailable(int numberBookInWaitingList,
+                                                int numberOfWaitinListAvailable,
                                                 Long idBook, Long idCustomer) {
 
         // On multiplie par 2 le nombre de réservation possible selon le nombre d'exemplaire
@@ -147,7 +150,7 @@ public class WaitingListServiceImpl implements WaitingListService {
 
         if ( (waitingListDto !=null) || (empruntDto != null)
                 || (numberOfWaitinListAvailable == numberBookInWaitingList
-                || (numberOfCopyAvailable > 0))) {
+                || (numberOfCopyAvailable != 0))) {
             return false;
         }
         else {
@@ -182,9 +185,8 @@ public class WaitingListServiceImpl implements WaitingListService {
         numberOfWaitinListAvailable = copyRepository.getNumberCopyByBook(idBook);
         // Récupération du nombre de réservation en attente
         numberBookInWaitingList = waitingListRepository.getNumberBookInWaitingList(idBook);
-
-        if (insertInWaitingListAvailable(numberBookInWaitingList, numberOfWaitinListAvailable, idBook, idCustomer)){
-            // Exceptions " La réservation n'est pas possible"
+        if (!insertInWaitingListAvailable(numberBookInWaitingList, numberOfWaitinListAvailable, idBook, idCustomer)){
+            throw new WaitingListException("WaitingList not available");
         }
 
         WaitingListDto waitingListDto = new WaitingListDto();
@@ -231,11 +233,16 @@ public class WaitingListServiceImpl implements WaitingListService {
         return number;
     }
 
+    /**
+     *
+     * @param numberInWaitingList
+     * @param returnDate
+     * @param waitingListDto
+     */
     @Override
     public void updateWaintingList(final int numberInWaitingList, final Date returnDate, WaitingListDto waitingListDto) {
         waitingListDto.setNumberInWaitingList(numberInWaitingList);
         waitingListDto.setNextReturn(returnDate);
-
     }
 
 }

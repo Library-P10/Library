@@ -1,12 +1,8 @@
 package com.api.library.controller;
 
 import com.api.library.config.JwtTokenUtil;
-import com.api.library.dto.CustomerDto;
-import com.api.library.dto.EmpruntDto;
-import com.api.library.service.contract.BookService;
-import com.api.library.service.contract.CopyService;
-import com.api.library.service.contract.CustomerService;
-import com.api.library.service.contract.EmpruntService;
+import com.api.library.dto.*;
+import com.api.library.service.contract.*;
 import com.api.library.service.exception.EmpruntNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,11 +21,14 @@ public class EmpruntController {
 
     private final CopyService copyService;
     private final BookService bookService;
+    private final WaitingListService waitingListService;
 
     @Autowired
-    public EmpruntController(final CopyService copyService, BookService bookService){
+    public EmpruntController(final CopyService copyService, BookService bookService,
+                             WaitingListService waitingListService){
         this.copyService = copyService;
         this.bookService = bookService;
+        this.waitingListService = waitingListService;
     }
 
     @Autowired
@@ -52,6 +51,22 @@ public class EmpruntController {
     public List<EmpruntDto> displayEmpruntByCustomer(@PathVariable("id") Long id){
 
         return empruntService.getEmpruntByIdCustomer(id);
+    }
+
+    @GetMapping(value = "emprunt/getBook/{idWaitingList}")
+    public void getBook (@PathVariable("idWaitingList") Long idWaitingList){
+        String status = "Waiting";
+
+        WaitingListDto waitingListDto = waitingListService.getWaitingListById(idWaitingList);
+        CopyDto copyDto = copyService.getCopyByIdBookAndStatus(waitingListDto.getBook().getId(), status);
+
+        // Ajoute un nouvelle emprunt
+        empruntService.addEmprunt(waitingListDto.getBook().getId(),
+                copyDto.getFormat(),copyDto.getLibrary().getNom(),
+                waitingListDto.getCustomer().getId());
+
+        // Supprime la réservation de la liste
+        waitingListService.deleteWaitingList(waitingListDto.getId());
     }
 
     /**

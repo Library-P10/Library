@@ -13,4 +13,6 @@ public interface CopyService {
     CopyDto getCopyById( Long idCopy);
     // Récupère le nombre d'exemplaire de l'ouvrage
     int getNumberCopyByIdBook (Long idBook);
+    // Récupère l'ouvrage en liste d'attente
+    CopyDto getCopyByIdBookAndStatus(Long idBook, String status);
 }
