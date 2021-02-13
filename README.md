@@ -26,7 +26,7 @@ Les outils pour le développement sont :
 	
 	- Créer un profil utilisateur avec les droits de création et de gestion de base de données. (username='admin' & password='admin')
 	
-	- Utiliser les scripts SQL dans MySQLWorkbench dans l'ordre ( create_database.sql , create.sql , library_insert_01.sql , library_insert_02.sql , library_insert_03.sql ) pour pouvoir utiliser les données. (Scripts télécharger via le github )
+	- Utiliser les scripts SQL, placé dans le dossier Database du MS API, dans MySQLWorkbench dans l'ordre ( 01_create_schema.sql, 02_create_table.sql , 03_insert_data_demo.sql ) pour pouvoir utiliser les données. 
 
 ##### Déploiement Application
 	
